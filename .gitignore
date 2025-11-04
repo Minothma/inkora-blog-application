@@ -1,0 +1,143 @@
+# ========================================
+# Git Ignore File for Blog Application
+# ========================================
+# This file tells Git which files to ignore
+
+# ========================================
+# SENSITIVE FILES
+# ========================================
+# NEVER commit these files to GitHub!
+.env
+config/database.php
+
+# ========================================
+# UPLOADED FILES
+# ========================================
+# Don't commit user-uploaded files
+uploads/*
+!uploads/.gitkeep
+uploads/avatars/*
+!uploads/avatars/.gitkeep
+uploads/blog_images/*
+!uploads/blog_images/.gitkeep
+
+# ========================================
+# LOGS
+# ========================================
+logs/
+*.log
+error.log
+
+# ========================================
+# OPERATING SYSTEM FILES
+# ========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ========================================
+# IDE & EDITOR FILES
+# ========================================
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# PHPStorm / IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# NetBeans
+nbproject/
+
+# Eclipse
+.project
+.buildpath
+.settings/
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ========================================
+# DEPENDENCIES & PACKAGES
+# ========================================
+# Composer
+/vendor/
+composer.lock
+composer.phar
+
+# Node.js (if using npm)
+node_modules/
+package-lock.json
+npm-debug.log
+yarn.lock
+yarn-error.log
+
+# ========================================
+# TEMPORARY FILES
+# ========================================
+# Cache files
+cache/
+tmp/
+temp/
+*.cache
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# ========================================
+# BUILD FILES
+# ========================================
+dist/
+build/
+*.min.js
+*.min.css
+
+# ========================================
+# TESTING
+# ========================================
+phpunit.xml
+.phpunit.result.cache
+tests/_output/
+
+# ========================================
+# DOCUMENTATION (optional)
+# ========================================
+# Uncomment if you don't want to commit docs
+# docs/
+
+# ========================================
+# MISC
+# ========================================
+*.diff
+*.err
+*.orig
+*.rej
+*.swo
+*.swp
+*.vi
+*.zip
+*.tar
+*.tar.gz
+*.rar
