@@ -744,10 +744,10 @@ require_once 'includes/header.php';
                         "Inkora has transformed how I share my stories. The community is incredibly supportive and the platform is so easy to use!"
                     </p>
                     <div class="d-flex align-items-center mt-auto">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                             style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--gradient-cyan) 0%, var(--gradient-purple) 100%); color: white; font-weight: bold;">
-                            SJ
-                        </div>
+                        <img src="uploads/avatars/avatar_690ab1ee12eb04.16352797.jpeg" 
+                             alt="Sarah Johnson" 
+                             class="rounded-circle me-3"
+                             style="width: 50px; height: 50px; object-fit: cover;">
                         <div>
                             <div class="fw-bold" style="color: var(--text-dark);">Sarah Johnson</div>
                             <small class="text-muted">Travel Writer</small>
@@ -769,10 +769,10 @@ require_once 'includes/header.php';
                         "Finally, a platform that understands writers! The editor is powerful yet simple, and I love the engagement from readers."
                     </p>
                     <div class="d-flex align-items-center mt-auto">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                             style="width: 50px; height: 50px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; font-weight: bold;">
-                            MP
-                        </div>
+                        <img src="uploads/avatars/avatar_690ab423d97bb3.56425366.jpeg" 
+                             alt="Michael Park" 
+                             class="rounded-circle me-3"
+                             style="width: 50px; height: 50px; object-fit: cover;">
                         <div>
                             <div class="fw-bold" style="color: var(--text-dark);">Michael Park</div>
                             <small class="text-muted">Tech Blogger</small>
@@ -794,10 +794,10 @@ require_once 'includes/header.php';
                         "Inkora gave me the confidence to share my creative writing. The community feedback has been invaluable to my growth."
                     </p>
                     <div class="d-flex align-items-center mt-auto">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                             style="width: 50px; height: 50px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; font-weight: bold;">
-                            ER
-                        </div>
+                        <img src="uploads/avatars/avatar_690ab50f964fa6.51050620.jpeg" 
+                             alt="Emma Rodriguez" 
+                             class="rounded-circle me-3"
+                             style="width: 50px; height: 50px; object-fit: cover;">
                         <div>
                             <div class="fw-bold" style="color: var(--text-dark);">Emma Rodriguez</div>
                             <small class="text-muted">Fiction Writer</small>
