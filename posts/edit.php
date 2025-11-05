@@ -306,22 +306,6 @@ require_once '../includes/header.php';
                             </div>
                         </div>
                         
-                        <!-- Excerpt (Optional) -->
-                        <div class="mb-4">
-                            <label for="excerpt" class="form-label fw-bold">
-                                <i class="bi bi-text-paragraph"></i> Excerpt (Optional)
-                            </label>
-                            <textarea class="form-control" 
-                                      id="excerpt" 
-                                      name="excerpt" 
-                                      rows="3"
-                                      maxlength="500"
-                                      placeholder="Brief summary of your story..."><?php echo htmlspecialchars($post['excerpt'] ?? ''); ?></textarea>
-                            <div class="form-text">
-                                Short preview shown in blog listings. Max 500 characters.
-                            </div>
-                        </div>
-                        
                         <!-- Current Featured Image -->
                         <?php if (!empty($post['featured_image'])): ?>
                             <div class="mb-3">

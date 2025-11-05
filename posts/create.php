@@ -581,26 +581,6 @@ require_once '../includes/header.php';
                     </div>
                 </div>
                 
-                <!-- Excerpt Section -->
-                <div class="form-card mb-4">
-                    <div class="form-section">
-                        <label for="excerpt" class="form-label">
-                            <i class="bi bi-text-paragraph"></i> Excerpt
-                            <span class="badge bg-secondary ms-2" style="font-size: 0.7rem; font-weight: 500;">Optional</span>
-                        </label>
-                        <textarea class="form-control" 
-                                  id="excerpt" 
-                                  name="excerpt" 
-                                  rows="3"
-                                  maxlength="500"
-                                  placeholder="Write a brief summary (auto-generated if left empty)..."><?php echo htmlspecialchars($excerpt); ?></textarea>
-                        <div id="excerptCounter" class="counter-display mt-2">
-                            <i class="bi bi-card-text"></i>
-                            <span><strong><span id="excerptCount">0</span></strong> / 500 characters</span>
-                        </div>
-                    </div>
-                </div>
-                
                 <!-- Featured Image Section -->
                 <div class="form-card mb-4">
                     <div class="form-section">
