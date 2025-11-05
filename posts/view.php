@@ -674,11 +674,12 @@ body {
                                class="btn btn-sm btn-outline-primary">
                                 <i class="bi bi-pencil"></i> Edit
                             </a>
+                            <div class="btn-group">
                             <a href="<?php echo url('posts/delete.php?id=' . $post['id']); ?>" 
-                               class="btn btn-sm btn-outline-danger"
-                               onclick="return confirm('Are you sure you want to delete this post?')">
+                               class="btn btn-sm btn-outline-danger">
                                 <i class="bi bi-trash"></i>
                             </a>
+                        </div>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -888,10 +889,10 @@ body {
                                class="btn btn-outline-primary">
                                 <i class="bi bi-facebook me-2"></i> Facebook
                             </a>
-                            <a href="https://twitter.com/intent/tweet?url=<?php echo urlencode(url('posts/view.php?id=' . $post['id'])); ?>&text=<?php echo urlencode($post['title']); ?>" 
+                            <a href="https://x.com/share?url=<?php echo urlencode(url('posts/view.php?id=' . $post['id'])); ?>&text=<?php echo urlencode($post['title']); ?>" 
                                target="_blank" 
                                class="btn btn-outline-info">
-                                <i class="bi bi-twitter me-2"></i> Twitter
+                                <i class="fa-brands fa-x-twitter me-2"></i> X
                             </a>
                             <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(url('posts/view.php?id=' . $post['id'])); ?>&title=<?php echo urlencode($post['title']); ?>" 
                                target="_blank" 
