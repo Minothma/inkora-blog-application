@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-<body>
-    
-<?php
+ <?php
 /**
  * View Single Blog Post - Inkora Platform
  */
@@ -890,11 +883,6 @@ body {
                                target="_blank" 
                                class="btn btn-outline-primary">
                                 <i class="bi bi-facebook me-2"></i> Facebook
-                            </a>
-                            <a href="https://x.com/share?url=<?php echo urlencode(url('posts/view.php?id=' . $post['id'])); ?>&text=<?php echo urlencode($post['title']); ?>" 
-                               target="_blank" 
-                               class="btn btn-outline-info">
-                                <i class="fa-brands fa-x-twitter me-2"></i> X
                             </a>
                             <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(url('posts/view.php?id=' . $post['id'])); ?>&title=<?php echo urlencode($post['title']); ?>" 
                                target="_blank" 
