@@ -136,9 +136,6 @@
                         <a href="#" style="color: #6c757d; text-decoration: none; font-size: 1.4rem; transition: color 0.3s;" onmouseover="this.style.color='#1877f2'" onmouseout="this.style.color='#6c757d'" title="Facebook" target="_blank">
                             <i class="bi bi-facebook"></i>
                         </a>
-                        <a href="#" style="color: #6c757d; text-decoration: none; font-size: 1.4rem; transition: color 0.3s;" onmouseover="this.style.color='#1da1f2'" onmouseout="this.style.color='#6c757d'" title="Twitter" target="_blank">
-                            <i class="bi bi-twitter"></i>
-                        </a>
                         <a href="#" style="color: #6c757d; text-decoration: none; font-size: 1.4rem; transition: color 0.3s;" onmouseover="this.style.color='#E4405F'" onmouseout="this.style.color='#6c757d'" title="Instagram" target="_blank">
                             <i class="bi bi-instagram"></i>
                         </a>
