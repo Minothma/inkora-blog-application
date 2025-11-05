@@ -1,13 +1,4 @@
 <?php
-/**
- * Helper Functions Library
- * 
- * Contains all reusable utility functions for the blog application
- * Note: Session functions are in config/session.php
- * 
- * @author BlogHub Team
- * @version 2.0
- */
 
 // ============================================
 // URL & NAVIGATION HELPERS

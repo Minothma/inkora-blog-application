@@ -1,19 +1,4 @@
 <?php
-/**
- * Search API
- * 
- * Handles blog post search functionality
- * 
- * Features:
- * - Search by title and content
- * - Pagination
- * - Published posts only
- * - Author information
- * - Statistics
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Set page title
 $pageTitle = "Search Results";

@@ -1,19 +1,4 @@
 <?php
-/**
- * Forgot Password Page
- * 
- * Allows users to request a password reset link
- * 
- * Features:
- * - Email validation
- * - Token generation
- * - Email sending
- * - Rate limiting
- * - CSRF protection
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Set page title
 $pageTitle = "Forgot Password";

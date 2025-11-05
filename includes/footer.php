@@ -4,14 +4,6 @@
  * 
  * This file contains the HTML footer, scripts, and closing tags
  * Include this file at the bottom of every page: require_once 'includes/footer.php';
- * 
- * Features:
- * - Professional responsive footer design
- * - Copyright information
- * - Social media links
- * - JavaScript includes
- * - Bootstrap scripts
- * 
  * @author Your Name
  * @version 1.0
  */

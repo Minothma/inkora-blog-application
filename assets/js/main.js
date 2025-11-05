@@ -1,13 +1,3 @@
-/**
- * Main JavaScript File for Blog Application
- * 
- * This file contains common JavaScript functions used throughout the application
- * jQuery and Bootstrap are loaded before this file
- * 
- * @author Your Name
- * @version 1.0
- */
-
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components

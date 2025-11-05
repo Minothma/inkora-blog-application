@@ -1,18 +1,6 @@
 <?php
 /**
  * User Profile View Page
- * 
- * Displays user profile information and their blog posts
- * 
- * Features:
- * - View own profile or other users' profiles
- * - Display user information
- * - List user's published blog posts
- * - Show statistics
- * - Edit button (for own profile)
- * 
- * @author Your Name
- * @version 1.0
  */
 
 // Set page title

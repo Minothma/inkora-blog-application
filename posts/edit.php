@@ -1,20 +1,4 @@
 <?php
-/**
- * Edit Blog Post Page
- * 
- * Allows authors to edit their own blog posts
- * 
- * Features:
- * - Only author can edit
- * - Pre-filled form with existing data
- * - Update title, content, excerpt
- * - Change featured image
- * - Change status (draft/published)
- * - CSRF protection
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Set page title
 $pageTitle = "Edit Post";

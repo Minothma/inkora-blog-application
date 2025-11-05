@@ -1,21 +1,4 @@
 <?php
-/**
- * User Login Page
- * 
- * This page handles user authentication
- * 
- * Features:
- * - Login with username or email
- * - Password verification
- * - Remember me functionality
- * - Session management
- * - Redirect to previous page
- * - Login attempt tracking
- * - CSRF protection
- * 
- * @author Your Name
- * @version 2.0 - Cyan to Purple Gradient Design
- */
 
 // Set page title
 $pageTitle = "Login";

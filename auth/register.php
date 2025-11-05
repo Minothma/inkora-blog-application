@@ -1,22 +1,4 @@
 <?php
-/**
- * User Registration Page
- * 
- * This page handles new user registration with validation
- * Beautiful cyan-to-purple gradient design matching homepage
- * 
- * Features:
- * - Username, email, and password validation
- * - Password strength checking
- * - Duplicate email/username prevention
- * - Password hashing with bcrypt
- * - Profile picture upload (optional)
- * - CSRF protection
- * - Beautiful gradient UI
- * 
- * @author Your Name
- * @version 2.0 - Cyan to Purple Gradient Design
- */
 
 // Set page title
 $pageTitle = "Register";

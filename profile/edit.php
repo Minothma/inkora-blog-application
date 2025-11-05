@@ -1,20 +1,6 @@
 <?php
 /**
  * Edit Profile Page
- * 
- * Allows users to edit their profile information
- * 
- * Features:
- * - Update username (with spaces allowed)
- * - Update email
- * - Update bio
- * - Change profile picture
- * - Link to change password
- * - CSRF protection
- * - Validation
- * 
- * @author Your Name
- * @version 1.1
  */
 
 // Set page title

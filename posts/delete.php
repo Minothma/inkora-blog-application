@@ -1,12 +1,4 @@
 <?php
-/**
- * Delete Blog Post
- * 
- * Simple and professional implementation with confirmation
- * 
- * @author Inkora Team
- * @version 2.2 - Simplified Professional Design
- */
 
 // Set page title
 $pageTitle = "Delete Post - Inkora";

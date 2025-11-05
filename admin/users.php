@@ -1,20 +1,4 @@
 <?php
-/**
- * Admin - Manage Users
- * 
- * Allows administrators to view and manage all users
- * 
- * Features:
- * - View all users
- * - Search users
- * - Change user roles
- * - Delete users (except self)
- * - User statistics
- * - Pagination
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Set page title
 $pageTitle = "Manage Users";

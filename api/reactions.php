@@ -1,18 +1,4 @@
 <?php
-/**
- * Reactions API
- * 
- * Handles reaction operations (add, remove, toggle)
- * 
- * Actions:
- * - toggle: Add reaction or change existing reaction
- * - remove: Remove reaction
- * 
- * Returns JSON response for AJAX requests
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Include required files
 require_once '../config/database.php';

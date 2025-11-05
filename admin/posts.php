@@ -1,20 +1,4 @@
 <?php
-/**
- * Admin - Manage Posts
- * 
- * Allows administrators to manage all blog posts
- * 
- * Features:
- * - View all posts
- * - Filter by status
- * - Search posts
- * - Delete any post
- * - View post details
- * - Pagination
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Set page title
 $pageTitle = "Manage Posts";

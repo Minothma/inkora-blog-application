@@ -1,21 +1,4 @@
 <?php
-/**
- * Create Blog Post Page
- * 
- * Allows authenticated users to create new blog posts with modern UI
- * 
- * Features:
- * - Rich text editor (TinyMCE)
- * - Real-time validation and character counting
- * - Featured image upload with preview
- * - Auto-generate slug and excerpt
- * - Draft/Publish status
- * - CSRF protection
- * - Modern cyan-to-purple gradient design
- * 
- * @author Inkora Team
- * @version 2.0 - Cyan to Purple Gradient Design
- */
 
 // Set page title
 $pageTitle = "Create New Story";

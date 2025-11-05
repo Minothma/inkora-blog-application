@@ -1,19 +1,4 @@
 <?php
-/**
- * My Blog Posts Page
- * 
- * Displays all blog posts created by the logged-in user
- * 
- * Features:
- * - List all user's posts (published and drafts)
- * - Show post statistics
- * - Quick edit/delete buttons
- * - Filter by status
- * - Pagination
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Set page title
 $pageTitle = "My Blog Posts";

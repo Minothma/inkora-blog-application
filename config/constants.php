@@ -1,22 +1,4 @@
 <?php
-/**
- * Application Constants File
- * 
- * This file defines all constant values used throughout the application
- * Constants make the code more maintainable and easier to update
- * 
- * Categories:
- * - Path Constants (file paths, URLs)
- * - Application Settings (name, version, etc.)
- * - Security Settings
- * - File Upload Settings
- * - Pagination Settings
- * - User Role Constants
- * - Status Constants
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Prevent direct access to this file
 if (!defined('DB_HOST')) {

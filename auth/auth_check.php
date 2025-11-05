@@ -1,23 +1,4 @@
 <?php
-/**
- * Authentication Middleware
- * 
- * This file is included in pages that require authentication
- * It checks if user is logged in and redirects if not
- * 
- * Usage:
- * Include this file at the top of protected pages:
- * require_once 'auth/auth_check.php';
- * 
- * Features:
- * - Checks if user is logged in
- * - Redirects to login page with return URL
- * - Can check for specific roles
- * - Session validation
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Include required files if not already included
 if (!defined('DB_HOST')) {

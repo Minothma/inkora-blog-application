@@ -1,18 +1,6 @@
 <?php
 /**
  * Change Password Page
- * 
- * Allows users to change their password
- * 
- * Features:
- * - Current password verification
- * - New password validation
- * - Password strength checking
- * - Password confirmation
- * - CSRF protection
- * 
- * @author Your Name
- * @version 1.0
  */
 
 // Set page title

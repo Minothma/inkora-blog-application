@@ -1,18 +1,4 @@
 <?php
-/**
- * Admin - Moderate Comments
- * 
- * Allows administrators to view and moderate all comments
- * 
- * Features:
- * - View all comments
- * - Delete any comment
- * - See comment context (post and author)
- * - Pagination
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Set page title
 $pageTitle = "Moderate Comments";

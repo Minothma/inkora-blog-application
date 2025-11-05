@@ -1,20 +1,4 @@
 <?php
-/**
- * Header Include File
- * 
- * This file contains the HTML header, navigation bar, and meta tags
- * Include this file at the top of every page: require_once 'includes/header.php';
- * 
- * Features:
- * - Responsive navigation bar
- * - User authentication status display
- * - Dynamic page title
- * - Bootstrap 5 styling
- * - Mobile-friendly menu
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Include required files
 require_once __DIR__ . '/../config/database.php';

@@ -1,16 +1,4 @@
 <?php
-/**
- * Comments API
- * 
- * Handles comment operations (add, delete)
- * 
- * Actions:
- * - add: Add new comment to blog post
- * - delete: Delete comment (author or post owner)
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Include required files
 require_once '../config/database.php';

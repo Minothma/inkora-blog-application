@@ -1,19 +1,4 @@
 <?php
-/**
- * Reset Password Page
- * 
- * Allows users to set a new password using a valid token
- * 
- * Features:
- * - Token validation
- * - Password strength requirements
- * - Secure password hashing
- * - Token expiration check
- * - CSRF protection
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Set page title
 $pageTitle = "Reset Password";

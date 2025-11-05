@@ -1,20 +1,4 @@
 <?php
-/**
- * Navigation Bar Include File
- * 
- * Standalone navigation bar component
- * This can be included separately if not using header.php
- * 
- * Features:
- * - Responsive navigation
- * - Dynamic user menu
- * - Search functionality
- * - Admin panel link (for admins)
- * - Login/Register links (for guests)
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Include required files if not already included
 if (!defined('DB_HOST')) {

@@ -8,11 +8,6 @@
 <?php
 /**
  * View Single Blog Post - Inkora Platform
- * 
- * Professional blog post view with spacious, modern design
- * 
- * @author Inkora Team
- * @version 3.0 - Spacious Professional Design
  */
 
 // Include required files

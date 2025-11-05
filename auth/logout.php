@@ -1,12 +1,4 @@
 <?php
-/**
- * User Logout Handler - Inkora Blog Platform
- * 
- * Professional logout page matching cyan-to-purple gradient theme
- * 
- * @author Inkora Team
- * @version 3.1 - Cyan to Purple Gradient Design
- */
 
 require_once '../config/database.php';
 require_once '../config/constants.php';

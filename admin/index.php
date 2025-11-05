@@ -1,19 +1,4 @@
 <?php
-/**
- * Admin Dashboard
- * 
- * Main dashboard for administrators
- * 
- * Features:
- * - Overview statistics
- * - Recent activity
- * - Quick actions
- * - Charts and graphs
- * - System information
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Set page title
 $pageTitle = "Admin Dashboard";

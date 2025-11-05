@@ -1,20 +1,4 @@
 <?php
-/**
- * Session Management File
- * 
- * This file handles all session-related operations with enhanced security
- * 
- * Features:
- * - Secure session configuration
- * - Session hijacking prevention
- * - CSRF token generation and validation
- * - User authentication helpers
- * - Flash message system
- * - Session timeout handling
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Require database and constants
 require_once __DIR__ . '/database.php';

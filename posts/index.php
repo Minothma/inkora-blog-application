@@ -1,23 +1,4 @@
 <?php
-/**
- * Blog Posts Listing Page - Fixed Avatar Issue
- * 
- * Displays all published blog posts with pagination
- * 
- * Features:
- * - Shows all published blogs
- * - Pagination support
- * - Author information with FIXED avatar display
- * - View count
- * - Created date
- * - Excerpt/preview
- * - Featured images
- * - Reaction counts
- * - Comment counts
- * 
- * @author Your Name
- * @version 2.1 - Fixed Avatar Shaking Issue
- */
 
 // Set page title
 $pageTitle = "All Blogs";

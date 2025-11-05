@@ -1,19 +1,4 @@
 <?php
-/**
- * Error Handler File
- * 
- * Centralized error handling and logging system
- * 
- * Features:
- * - Custom error handler
- * - Exception handler
- * - Error logging
- * - User-friendly error messages
- * - Development vs Production modes
- * 
- * @author Your Name
- * @version 1.0
- */
 
 // Prevent direct access
 if (!defined('DB_HOST')) {
