@@ -609,10 +609,10 @@ require_once '../includes/header.php';
                         </label>
                         <select class="form-select" id="status" name="status">
                             <option value="published" <?php echo ($status === 'published') ? 'selected' : ''; ?>>
-                                📢 Publish Now - Visible to everyone
+                                 Publish Now - Visible to everyone
                             </option>
                             <option value="draft" <?php echo ($status === 'draft') ? 'selected' : ''; ?>>
-                                📝 Save as Draft - Only you can see
+                                 Save as Draft - Only you can see
                             </option>
                         </select>
                     </div>
