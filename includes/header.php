@@ -16,7 +16,7 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Inkora - Where words come to life. Share your stories, ideas, and experiences with the world.">
-    <meta name="author" content="Inkora Publishing">
+    <meta name="author" content="Inkora">
     
     <!-- Page Title -->
     <title><?php echo htmlspecialchars($pageTitle); ?></title>
@@ -25,10 +25,10 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
     <link rel="icon" href="<?php echo BASE_URL; ?>/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="<?php echo BASE_URL; ?>/favicon.ico" type="image/x-icon">
     
-    <!-- Google Fonts (Plus Jakarta Sans & Lora Serif) -->
+    <!-- Google Fonts (Plus Jakarta Sans & Lora) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     
     <!-- Bootstrap 5 CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -39,258 +39,170 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo CSS_URL; ?>/style.css">
     
-    <!-- Header & Navigation Design System -->
+    <!-- Header & Navigation Styling -->
     <style>
         :root {
             --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-serif: 'Lora', Georgia, serif;
-            --primary-indigo: #4F46E5;
-            --primary-indigo-hover: #4338CA;
-            --midnight-slate: #0F172A;
-            --slate-800: #1E293B;
-            --slate-300: #CBD5E1;
-            --slate-400: #94A3B8;
+            --primary-indigo: #4f46e5;
         }
 
         body {
             font-family: var(--font-main);
-            background-color: #F8FAFC;
+            background-color: #f8fafc;
             color: #334155;
             margin: 0;
             padding: 0;
         }
 
-        /* Frosted Glass Header */
-        .navbar-inkora {
-            min-height: 72px;
-            background: rgba(15, 23, 42, 0.96) !important;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+        /* Sleek Midnight Slate Navbar */
+        .navbar {
+            min-height: 70px;
+            background: #0f172a !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.25);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
         }
 
-        /* Brand Logo Emblem & Wordmark */
-        .brand-logo-container {
-            display: inline-flex;
+        /* Original Inkora Logo Display */
+        .navbar-brand {
+            padding: 0;
+            margin-right: 1.5rem;
+            display: flex;
             align-items: center;
-            gap: 10px;
-            text-decoration: none !important;
+        }
+
+        .navbar-brand img {
+            height: 48px !important;
+            width: auto;
+            object-fit: contain;
+            filter: invert(1) brightness(1.2);
+            mix-blend-mode: screen;
             transition: transform 0.2s ease;
         }
 
-        .brand-logo-container:hover {
-            transform: scale(1.02);
-        }
-
-        .brand-emblem {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #818CF8 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFFFFF;
-            font-size: 1.25rem;
-            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.45);
-        }
-
-        .brand-text {
-            color: #FFFFFF;
-            font-size: 1.45rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-        }
-
-        .brand-dot {
-            color: #818CF8;
+        .navbar-brand:hover img {
+            transform: scale(1.03);
         }
 
         /* Nav links */
         .navbar-nav .nav-link {
-            color: #94A3B8 !important;
-            font-weight: 600;
-            font-size: 0.925rem;
-            padding: 0.5rem 0.95rem !important;
+            color: #cbd5e1 !important;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 0.9rem !important;
             border-radius: 8px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #FFFFFF !important;
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .navbar-nav .nav-link.active {
-            color: #FFFFFF !important;
-            background: rgba(79, 70, 229, 0.2);
-        }
-
-        /* Write Story Pill Button */
-        .btn-nav-write {
-            background: #4F46E5;
-            color: #FFFFFF !important;
-            font-weight: 600;
-            font-size: 0.875rem;
-            padding: 0.45rem 1.1rem;
-            border-radius: 50px;
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
-            transition: all 0.2s ease;
-            text-decoration: none;
         }
 
-        .btn-nav-write:hover {
-            background: #4338CA;
-            color: #FFFFFF !important;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.5);
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        /* Search Bar */
-        .navbar-search-input {
+        /* Search Bar (Fixed size across all pages) */
+        .navbar .navbar-search-input {
             height: 40px !important;
-            padding: 0.375rem 1rem !important;
+            padding: 0.375rem 0.9rem !important;
             font-size: 0.875rem !important;
             border-radius: 10px 0 0 10px !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
             border-right: none !important;
             background-color: rgba(255, 255, 255, 0.08) !important;
-            color: #FFFFFF !important;
-            width: 190px !important;
+            color: #ffffff !important;
+            width: 220px !important;
             transition: all 0.25s ease !important;
         }
 
-        .navbar-search-input::placeholder {
-            color: #94A3B8 !important;
+        .navbar .navbar-search-input::placeholder {
+            color: #94a3b8 !important;
         }
 
-        .navbar-search-input:focus {
-            background-color: #FFFFFF !important;
-            color: #0F172A !important;
-            border-color: #6366F1 !important;
+        .navbar .navbar-search-input:focus {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #6366f1 !important;
             box-shadow: none !important;
-            width: 240px !important;
+            width: 260px !important;
         }
 
-        .navbar-search-input:focus::placeholder {
-            color: #64748B !important;
-        }
-
-        .navbar-search-btn {
+        .navbar .navbar-search-btn {
             height: 40px !important;
-            padding: 0.375rem 0.9rem !important;
+            padding: 0.375rem 0.85rem !important;
             border-radius: 0 10px 10px 0 !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
             border-left: none !important;
             background-color: rgba(255, 255, 255, 0.08) !important;
-            color: #94A3B8 !important;
+            color: #cbd5e1 !important;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
             transition: all 0.2s ease !important;
         }
 
-        .navbar-search-btn:hover {
-            background-color: #4F46E5 !important;
-            border-color: #4F46E5 !important;
-            color: #FFFFFF !important;
+        .navbar .navbar-search-btn:hover {
+            background-color: #4f46e5 !important;
+            border-color: #4f46e5 !important;
+            color: #ffffff !important;
         }
 
-        /* User Avatar Dropdown */
-        .nav-avatar-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 4px 12px 4px 6px;
+        /* User Dropdown */
+        .navbar .user-nav-link {
+            color: #ffffff !important;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.35rem 0.6rem !important;
             border-radius: 50px;
-            color: #FFFFFF !important;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            gap: 0.5rem;
+            text-decoration: none;
             transition: all 0.2s ease;
         }
 
-        .nav-avatar-btn:hover {
+        .navbar .user-nav-link:hover {
             background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .nav-avatar-img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1.5px solid #818CF8;
-        }
-
-        .nav-avatar-initials {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
-            color: #FFFFFF;
-            font-weight: 700;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .dropdown-menu-dark-custom {
-            background: #1E293B !important;
+        .navbar .dropdown-menu {
+            background: #1e293b !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            border-radius: 14px !important;
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3) !important;
             padding: 0.5rem !important;
-            min-width: 210px;
+            min-width: 200px;
         }
 
-        .dropdown-menu-dark-custom .dropdown-item {
-            color: #CBD5E1 !important;
-            font-size: 0.875rem !important;
-            font-weight: 500 !important;
-            padding: 0.6rem 0.85rem !important;
-            border-radius: 8px !important;
+        .navbar .dropdown-item {
+            color: #cbd5e1 !important;
+            font-size: 0.9rem !important;
+            padding: 0.55rem 0.85rem !important;
+            border-radius: 6px !important;
+            transition: all 0.15s ease;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            transition: all 0.15s ease;
+            gap: 0.5rem;
         }
 
-        .dropdown-menu-dark-custom .dropdown-item:hover {
+        .navbar .dropdown-item:hover {
             background: rgba(255, 255, 255, 0.08) !important;
-            color: #FFFFFF !important;
+            color: #ffffff !important;
             transform: translateX(2px);
         }
 
-        .dropdown-menu-dark-custom .dropdown-divider {
+        .navbar .dropdown-divider {
             border-color: rgba(255, 255, 255, 0.08) !important;
             margin: 0.4rem 0 !important;
         }
 
-        /* Subtitle high-contrast helper */
-        .text-slate-300 {
-            color: #CBD5E1 !important;
-        }
-        .text-slate-200 {
-            color: #E2E8F0 !important;
-        }
-        .text-slate-400 {
-            color: #94A3B8 !important;
-        }
+        .text-slate-300 { color: #cbd5e1 !important; }
+        .text-slate-200 { color: #e2e8f0 !important; }
 
         @media (max-width: 991px) {
-            .navbar-search-input {
+            .navbar .navbar-search-input {
                 width: 100% !important;
             }
         }
@@ -307,49 +219,52 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
 <body>
     
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-inkora sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             
-            <!-- Brand Logo -->
-            <a class="brand-logo-container me-3" href="<?php echo url('index.php'); ?>">
-                <div class="brand-emblem">
-                    <i class="bi bi-feather"></i>
-                </div>
-                <span class="brand-text">Inkora<span class="brand-dot">.</span></span>
+            <!-- Original Inkora Logo -->
+            <a class="navbar-brand" href="<?php echo url('index.php'); ?>">
+                <img src="<?php echo IMG_URL; ?>/logo.png" alt="Inkora">
             </a>
             
-            <!-- Mobile Toggle -->
+            <!-- Mobile Toggle Button -->
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="bi bi-list fs-2 text-white"></i>
             </button>
             
-            <!-- Menu Items -->
+            <!-- Navigation Links -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo url('index.php'); ?>">
-                            <i class="bi bi-compass"></i> Home
+                            <i class="bi bi-house-door"></i> Home
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo url('posts/index.php'); ?>">
-                            <i class="bi bi-journal-richtext"></i> All Stories
+                            <i class="bi bi-book"></i> All Blogs
                         </a>
                     </li>
+                    
                     <?php if (isLoggedIn()): ?>
                         <li class="nav-item">
+                            <a class="nav-link" href="<?php echo url('posts/create.php'); ?>">
+                                <i class="bi bi-plus-circle"></i> Create Blog
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="<?php echo url('posts/my_posts.php'); ?>">
-                                <i class="bi bi-person-workspace"></i> My Stories
+                                <i class="bi bi-journal-check"></i> My Blogs
                             </a>
                         </li>
                     <?php endif; ?>
                 </ul>
                 
-                <!-- Search Bar -->
+                <!-- Search Form -->
                 <form class="d-flex me-3 mb-2 mb-lg-0" action="<?php echo url('api/search.php'); ?>" method="GET">
                     <div class="input-group">
-                        <input class="form-control navbar-search-input" type="search" name="q" placeholder="Search stories..." 
+                        <input class="form-control navbar-search-input" type="search" name="q" placeholder="Search blogs..." 
                                aria-label="Search" value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>">
                         <button class="btn navbar-search-btn" type="submit" aria-label="Search">
                             <i class="bi bi-search"></i>
@@ -357,55 +272,46 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
                     </div>
                 </form>
                 
-                <!-- Right Action Items -->
-                <div class="d-flex align-items-center gap-2">
+                <!-- User / Auth Menu -->
+                <ul class="navbar-nav">
                     <?php if (isLoggedIn()): ?>
-                        <!-- Quick Write Button -->
-                        <a href="<?php echo url('posts/create.php'); ?>" class="btn-nav-write me-2">
-                            <i class="bi bi-plus-lg"></i>
-                            <span>Write</span>
-                        </a>
-                        
-                        <!-- User Dropdown Menu -->
-                        <div class="dropdown">
-                            <a class="nav-avatar-btn dropdown-toggle text-decoration-none" href="#" id="userMenuDropdown" 
+                        <li class="nav-item dropdown">
+                            <a class="user-nav-link dropdown-toggle" href="#" id="userDropdown" 
                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php if (!empty($_SESSION['profile_picture']) && $_SESSION['profile_picture'] !== DEFAULT_AVATAR): ?>
                                     <img src="<?php echo upload('avatar', $_SESSION['profile_picture']); ?>" 
-                                         alt="Profile" class="nav-avatar-img">
+                                         alt="Profile" class="rounded-circle" width="34" height="34"
+                                         style="object-fit: cover; border: 2px solid #818CF8;">
                                 <?php else: ?>
-                                    <div class="nav-avatar-initials">
+                                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center text-white fw-bold" 
+                                         style="width: 34px; height: 34px; background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); font-size: 0.85rem;">
                                         <?php echo strtoupper(substr(getCurrentUsername(), 0, 2)); ?>
                                     </div>
                                 <?php endif; ?>
-                                <span class="d-none d-sm-inline"><?php echo htmlspecialchars(getCurrentUsername()); ?></span>
+                                <span><?php echo htmlspecialchars(getCurrentUsername()); ?></span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark-custom mt-2" aria-labelledby="userMenuDropdown">
-                                <li class="px-3 py-2 border-bottom" style="border-color: rgba(255,255,255,0.08) !important;">
-                                    <span class="d-block text-white fw-bold small"><?php echo htmlspecialchars(getCurrentUsername()); ?></span>
-                                    <span class="d-block text-slate-400" style="font-size: 0.75rem;"><?php echo htmlspecialchars($_SESSION['email'] ?? ''); ?></span>
-                                </li>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li>
-                                    <a class="dropdown-item mt-1" href="<?php echo url('profile/view.php'); ?>">
-                                        <i class="bi bi-person text-indigo"></i> Profile Overview
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="<?php echo url('posts/my_posts.php'); ?>">
-                                        <i class="bi bi-journal-text text-indigo"></i> My Stories
+                                    <a class="dropdown-item" href="<?php echo url('profile/view.php'); ?>">
+                                        <i class="bi bi-person text-primary"></i> My Profile
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="<?php echo url('profile/edit.php'); ?>">
-                                        <i class="bi bi-gear text-indigo"></i> Account Settings
+                                        <i class="bi bi-pencil text-primary"></i> Edit Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="<?php echo url('posts/my_posts.php'); ?>">
+                                        <i class="bi bi-journal-text text-primary"></i> My Blogs
                                     </a>
                                 </li>
                                 
                                 <?php if (isAdmin()): ?>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        <a class="dropdown-item text-warning fw-semibold" href="<?php echo url('admin/index.php'); ?>">
-                                            <i class="bi bi-shield-lock-fill text-warning"></i> Admin Panel
+                                        <a class="dropdown-item text-warning" href="<?php echo url('admin/index.php'); ?>">
+                                            <i class="bi bi-shield-lock-fill"></i> Admin Panel
                                         </a>
                                     </li>
                                 <?php endif; ?>
@@ -413,21 +319,24 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item text-danger" href="<?php echo url('auth/logout.php'); ?>">
-                                        <i class="bi bi-box-arrow-right text-danger"></i> Sign Out
+                                        <i class="bi bi-box-arrow-right"></i> Logout
                                     </a>
                                 </li>
                             </ul>
-                        </div>
+                        </li>
                     <?php else: ?>
-                        <!-- Auth Links -->
-                        <a class="nav-link text-slate-300" href="<?php echo url('auth/login.php'); ?>">
-                            Sign In
-                        </a>
-                        <a class="btn btn-nav-write" href="<?php echo url('auth/register.php'); ?>">
-                            Get Started
-                        </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo url('auth/login.php'); ?>">
+                                <i class="bi bi-box-arrow-in-right"></i> Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary ms-2" href="<?php echo url('auth/register.php'); ?>" style="border-radius: 8px; font-weight: 600;">
+                                <i class="bi bi-person-plus"></i> Register
+                            </a>
+                        </li>
                     <?php endif; ?>
-                </div>
+                </ul>
                 
             </div>
         </div>
