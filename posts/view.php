@@ -167,20 +167,20 @@ require_once '../includes/header.php';
 ?>
 
 <style>
-/* Spacious Professional Design */
+/* Nordic Slate & Deep Indigo Reading Theme */
 :root {
-    --primary: #667eea;
-    --primary-dark: #764ba2;
-    --text-dark: #1a202c;
-    --text-body: #2d3748;
-    --text-muted: #718096;
-    --bg-light: #f7fafc;
+    --primary: #4f46e5;
+    --primary-dark: #3730a3;
+    --text-dark: #0f172a;
+    --text-body: #334155;
+    --text-muted: #64748b;
+    --bg-light: #f8fafc;
     --bg-white: #ffffff;
     --border-light: #e2e8f0;
 }
 
 body {
-    background: #fafbfc;
+    background: #f8fafc;
 }
 
 /* Reading Progress Bar */
@@ -189,9 +189,9 @@ body {
     top: 0;
     left: 0;
     width: 0%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
-    z-index: 1000;
+    height: 3.5px;
+    background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 100%);
+    z-index: 1050;
     transition: width 0.1s ease;
 }
 
@@ -199,16 +199,16 @@ body {
 .article-header {
     background: var(--bg-white);
     border-bottom: 1px solid var(--border-light);
-    padding: 60px 0 40px;
+    padding: 50px 0 35px;
 }
 
 .article-title {
-    font-size: 3rem;
+    font-size: 2.75rem;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.25;
     color: var(--text-dark);
-    margin-bottom: 2rem;
-    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.025em;
 }
 
 .article-excerpt {

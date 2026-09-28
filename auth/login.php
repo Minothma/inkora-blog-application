@@ -148,298 +148,41 @@ if (isset($_COOKIE['remember_user']) && !isLoggedIn()) {
 require_once '../includes/header.php';
 ?>
 
-<style>
-/* Cyan to Purple Gradient Design */
-:root {
-    /* Primary Gradient Colors */
-    --gradient-cyan: #00CED1;
-    --gradient-cyan-light: #20B2C4;
-    --gradient-purple: #6A5ACD;
-    --gradient-purple-deep: #7B68BE;
-    --gradient-navy: #0B1A2D;
-    
-    /* Accent Colors */
-    --accent-warm: #FFE4B5;
-    --accent-gold: #FDB94E;
-    
-    /* Neutral Colors */
-    --text-dark: #2d3748;
-    --text-muted: #718096;
-    --bg-light: #f7fafc;
-    --border-light: #e2e8f0;
-}
-
-/* Full Page Gradient Background */
-body {
-    background: linear-gradient(180deg, 
-        var(--gradient-cyan) 0%, 
-        var(--gradient-cyan-light) 25%,
-        var(--gradient-purple) 60%, 
-        var(--gradient-purple-deep) 80%,
-        var(--gradient-navy) 100%
-    );
-    min-height: 100vh;
-    position: relative;
-}
-
-/* Background Pattern Overlay */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 0.4;
-    z-index: 0;
-}
-
-/* Content Wrapper */
-.login-wrapper {
-    position: relative;
-    z-index: 1;
-    min-height: calc(100vh - 200px);
-    display: flex;
-    align-items: center;
-    padding: 3rem 0;
-}
-
-/* Login Card - Modern Glass Effect */
-.login-card {
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    overflow: hidden;
-    animation: slideUp 0.6s ease-out;
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Header Icon with Gradient */
-.login-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, var(--gradient-cyan) 0%, var(--gradient-purple) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 206, 209, 0.3);
-}
-
-.login-icon i {
-    font-size: 2.5rem;
-    color: white;
-}
-
-/* Form Inputs */
-.form-control {
-    border-radius: 12px;
-    padding: 0.85rem 1rem;
-    border: 2px solid var(--border-light);
-    transition: all 0.3s ease;
-    font-size: 1rem;
-}
-
-.form-control:focus {
-    border-color: var(--gradient-cyan);
-    box-shadow: 0 0 0 4px rgba(0, 206, 209, 0.1);
-    background: rgba(0, 206, 209, 0.02);
-}
-
-.form-label {
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-}
-
-/* Password Toggle Button */
-.input-group .btn-outline-secondary {
-    border-radius: 0 12px 12px 0;
-    border: 2px solid var(--border-light);
-    border-left: none;
-    background: white;
-    transition: all 0.3s ease;
-}
-
-.input-group .btn-outline-secondary:hover {
-    background: var(--bg-light);
-    border-color: var(--gradient-cyan);
-}
-
-.input-group .form-control {
-    border-radius: 12px 0 0 12px;
-}
-
-/* Gradient Button */
-.btn-gradient-primary {
-    background: linear-gradient(135deg, var(--gradient-cyan) 0%, var(--gradient-purple) 100%);
-    border: none;
-    color: white;
-    font-weight: 600;
-    padding: 0.85rem 2rem;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 206, 209, 0.3);
-}
-
-.btn-gradient-primary:hover {
-    background: linear-gradient(135deg, var(--gradient-cyan-light) 0%, var(--gradient-purple-deep) 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 206, 209, 0.4);
-    color: white;
-}
-
-.btn-gradient-primary:active {
-    transform: translateY(0);
-}
-
-/* Checkbox Custom Style */
-.form-check-input {
-    width: 1.2em;
-    height: 1.2em;
-    border-radius: 6px;
-    border: 2px solid var(--border-light);
-    cursor: pointer;
-}
-
-.form-check-input:checked {
-    background-color: var(--gradient-cyan);
-    border-color: var(--gradient-cyan);
-}
-
-.form-check-label {
-    cursor: pointer;
-    color: var(--text-dark);
-    font-size: 0.95rem;
-}
-
-/* Links */
-.login-card a {
-    color: var(--gradient-purple);
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.login-card a:hover {
-    color: var(--gradient-cyan);
-    text-decoration: none;
-}
-
-/* Alert Messages */
-.alert {
-    border-radius: 12px;
-    border: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.alert-danger {
-    background: linear-gradient(135deg, #fee, #fdd);
-    color: #c33;
-    border-left: 4px solid #e53e3e;
-}
-
-.alert-info {
-    background: linear-gradient(135deg, #e6f7ff, #d4edff);
-    color: #0066cc;
-    border-left: 4px solid #0066cc;
-}
-
-/* Divider */
-.divider {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 1.5rem 0;
-}
-
-.divider::before,
-.divider::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid var(--border-light);
-}
-
-.divider span {
-    padding: 0 1rem;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-/* Register Link Box */
-.register-link-box {
-    background: var(--bg-light);
-    border-radius: 12px;
-    padding: 1.5rem;
-    text-align: center;
-    margin-top: 1.5rem;
-}
-
-/* Responsive Design */
-@media (max-width: 576px) {
-    .login-card {
-        border-radius: 16px;
-        margin: 1rem;
-    }
-    
-    .login-icon {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .login-icon i {
-        font-size: 2rem;
-    }
-}
-</style>
-
-<!-- Login Form -->
-<div class="login-wrapper">
+<div class="auth-section py-5">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6 col-xl-5">
+            <div class="col-md-7 col-lg-5 col-xl-4">
                 
                 <!-- Login Card -->
-                <div class="login-card">
-                    <div class="card-body p-4 p-md-5">
+                <div class="card auth-card border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+                    <div class="card-body p-4 p-sm-5">
                         
                         <!-- Header -->
                         <div class="text-center mb-4">
-                            <div class="login-icon">
+                            <div class="auth-icon-badge mb-3">
                                 <i class="bi bi-box-arrow-in-right"></i>
                             </div>
-                            <h2 class="fw-bold mb-2" style="color: var(--text-dark);">Welcome Back</h2>
-                            <p class="text-muted mb-0">Sign in to continue to Inkora</p>
+                            <h2 class="fw-bold mb-1" style="color: #0F172A; font-size: 1.6rem; letter-spacing: -0.02em;">Welcome Back</h2>
+                            <p class="text-muted small">Sign in to continue to your Inkora account</p>
                         </div>
                         
                         <!-- Error Messages -->
                         <?php if (!empty($errors)): ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                                <?php if (count($errors) === 1): ?>
-                                    <strong><?php echo htmlspecialchars($errors[0]); ?></strong>
-                                <?php else: ?>
-                                    <strong>Please fix the following errors:</strong>
-                                    <ul class="mb-0 mt-2">
-                                        <?php foreach ($errors as $error): ?>
-                                            <li><?php echo htmlspecialchars($error); ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                <?php endif; ?>
+                            <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-exclamation-circle-fill me-2 fs-5"></i>
+                                    <div>
+                                        <?php if (count($errors) === 1): ?>
+                                            <span><?php echo htmlspecialchars($errors[0]); ?></span>
+                                        <?php else: ?>
+                                            <ul class="mb-0 ps-3">
+                                                <?php foreach ($errors as $error): ?>
+                                                    <li><?php echo htmlspecialchars($error); ?></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
                         <?php endif; ?>
@@ -457,85 +200,99 @@ body::before {
                             
                             <!-- Username or Email -->
                             <div class="mb-3">
-                                <label for="username_email" class="form-label">
-                                    <i class="bi bi-person-fill me-1"></i> Username or Email
+                                <label for="username_email" class="form-label text-slate-700 fw-semibold small">
+                                    Username or Email
                                 </label>
-                                <input type="text" 
-                                       class="form-control" 
-                                       id="username_email" 
-                                       name="username_email" 
-                                       value="<?php echo htmlspecialchars($username_email); ?>"
-                                       placeholder="Enter username or email"
-                                       required
-                                       autofocus>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-slate-400" style="border-radius: 10px 0 0 10px; border-color: #CBD5E1;">
+                                        <i class="bi bi-person"></i>
+                                    </span>
+                                    <input type="text" 
+                                           class="form-control border-start-0" 
+                                           id="username_email" 
+                                           name="username_email" 
+                                           value="<?php echo htmlspecialchars($username_email); ?>"
+                                           placeholder="e.g. johndoe or john@example.com"
+                                           style="border-radius: 0 10px 10px 0;"
+                                           required
+                                           autofocus>
+                                </div>
                             </div>
                             
                             <!-- Password -->
                             <div class="mb-3">
-                                <label for="password" class="form-label">
-                                    <i class="bi bi-lock-fill me-1"></i> Password
-                                </label>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <label for="password" class="form-label text-slate-700 fw-semibold small mb-0">
+                                        Password
+                                    </label>
+                                    <a href="<?php echo url('auth/forgot_password.php'); ?>" class="text-decoration-none small text-indigo fw-medium">
+                                        Forgot?
+                                    </a>
+                                </div>
                                 <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-slate-400" style="border-radius: 10px 0 0 10px; border-color: #CBD5E1;">
+                                        <i class="bi bi-lock"></i>
+                                    </span>
                                     <input type="password" 
-                                           class="form-control" 
+                                           class="form-control border-start-0 border-end-0" 
                                            id="password" 
                                            name="password" 
-                                           placeholder="Enter your password"
+                                           placeholder="••••••••"
                                            required>
-                                    <button class="btn btn-outline-secondary" 
+                                    <button class="btn btn-outline-secondary border-start-0 text-slate-400" 
                                             type="button" 
                                             id="togglePassword"
-                                            onclick="togglePasswordVisibility()">
+                                            onclick="togglePasswordVisibility()"
+                                            style="border-radius: 0 10px 10px 0; border-color: #CBD5E1;">
                                         <i class="bi bi-eye" id="toggleIcon"></i>
                                     </button>
                                 </div>
                             </div>
                             
-                            <!-- Remember Me & Forgot Password -->
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" 
-                                           type="checkbox" 
-                                           id="remember_me" 
-                                           name="remember_me">
-                                    <label class="form-check-label" for="remember_me">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <a href="<?php echo url('auth/forgot_password.php'); ?>" class="text-decoration-none small">
-                                    Forgot password?
-                                </a>
+                            <!-- Remember Me -->
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" 
+                                       type="checkbox" 
+                                       id="remember_me" 
+                                       name="remember_me"
+                                       style="border-color: #CBD5E1;">
+                                <label class="form-check-label text-slate-600 small" for="remember_me">
+                                    Remember me on this device
+                                </label>
                             </div>
                             
                             <!-- Submit Button -->
                             <div class="d-grid mb-3">
-                                <button type="submit" class="btn btn-gradient-primary btn-lg">
-                                    <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
+                                <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 10px; font-weight: 600; font-size: 1rem; padding: 0.75rem;">
+                                    <span>Sign In</span>
+                                    <i class="bi bi-arrow-right ms-1"></i>
                                 </button>
                             </div>
                         </form>
                         
                         <!-- Divider -->
-                        <div class="divider">
-                            <span>or</span>
+                        <div class="d-flex align-items-center my-4">
+                            <hr class="flex-grow-1 my-0" style="border-color: #E2E8F0;">
+                            <span class="px-3 text-muted small">New to Inkora?</span>
+                            <hr class="flex-grow-1 my-0" style="border-color: #E2E8F0;">
                         </div>
                         
                         <!-- Register Link -->
-                        <div class="register-link-box">
-                            <p class="text-muted mb-2">Don't have an account?</p>
-                            <a href="<?php echo url('auth/register.php'); ?>" class="btn btn-outline-secondary w-100" style="border-radius: 12px; font-weight: 600;">
-                                <i class="bi bi-person-plus-fill me-2"></i> Create Account
+                        <div class="text-center">
+                            <a href="<?php echo url('auth/register.php'); ?>" class="btn btn-outline-secondary w-100" style="border-radius: 10px; font-weight: 600; padding: 0.65rem;">
+                                Create an Account
                             </a>
                         </div>
                         
-                        <!-- Demo Credentials (Remove in production!) -->
+                        <!-- Demo Credentials (DEV) -->
                         <?php if (isDevelopment()): ?>
-                            <div class="alert alert-info mt-3 mb-0" role="alert">
-                                <small>
-                                    <strong><i class="bi bi-info-circle me-1"></i> Demo Credentials:</strong><br>
-                                    <strong>Admin:</strong> admin / Admin@123<br>
-                                    <strong>User:</strong> johndoe / Admin@123
-                                </small>
+                            <div class="alert alert-info mt-4 mb-0 py-2 px-3" role="alert" style="font-size: 0.8rem;">
+                                <div class="d-flex align-items-center mb-1">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    <strong>Demo Credentials:</strong>
+                                </div>
+                                <span class="d-block">Admin: <code>admin</code> / <code>Admin@123</code></span>
+                                <span class="d-block">User: <code>johndoe</code> / <code>Admin@123</code></span>
                             </div>
                         <?php endif; ?>
                         
@@ -546,6 +303,36 @@ body::before {
         </div>
     </div>
 </div>
+
+<style>
+.auth-section {
+    min-height: calc(100vh - 350px);
+    display: flex;
+    align-items: center;
+}
+.auth-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0 !important;
+}
+.auth-icon-badge {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: #EEF2FF;
+    color: #4F46E5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+}
+.text-indigo {
+    color: #4F46E5;
+}
+.text-indigo:hover {
+    color: #4338CA;
+}
+</style>
 
 <!-- Password Toggle Script -->
 <script>

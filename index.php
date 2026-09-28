@@ -145,45 +145,33 @@ require_once 'includes/header.php';
 ?>
 
 <style>
-/* Cyan to Purple Gradient Color Scheme - 2025 Standards */
+/* Nordic Slate & Deep Indigo Design System */
 :root {
-    /* Primary Gradient Colors */
-    --gradient-cyan: #00CED1;
-    --gradient-cyan-light: #20B2C4;
-    --gradient-purple: #6A5ACD;
-    --gradient-purple-deep: #7B68BE;
-    --gradient-navy: #0B1A2D;
-    --gradient-navy-light: #1A1F3A;
-    
-    /* Accent Colors */
-    --accent-warm: #FFE4B5;
-    --accent-gold: #FDB94E;
-    
-    /* Neutral Colors */
-    --text-dark: #2d3748;
-    --text-muted: #718096;
-    --bg-light: #f7fafc;
+    --primary-indigo: #4f46e5;
+    --primary-indigo-dark: #3730a3;
+    --primary-indigo-light: #6366f1;
+    --dark-midnight: #0f172a;
+    --dark-slate: #1e293b;
+    --accent-emerald: #10b981;
+    --accent-amber: #f59e0b;
+    --text-dark: #0f172a;
+    --text-muted: #64748b;
+    --bg-light: #f8fafc;
     --bg-white: #ffffff;
     --border-light: #e2e8f0;
-    
-    /* Shadows */
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.08);
 }
 
-/* Hero Section - Cyan to Purple Gradient */
+/* Hero Section */
 .hero-section {
     position: relative;
     overflow: hidden;
-    min-height: 600px;
-    background: linear-gradient(180deg, 
-        var(--gradient-cyan) 0%, 
-        var(--gradient-cyan-light) 25%,
-        var(--gradient-purple) 60%, 
-        var(--gradient-purple-deep) 80%,
-        var(--gradient-navy) 100%
-    );
+    min-height: 540px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    border-radius: 0 0 36px 36px;
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.35);
 }
 
 .hero-section::before {
@@ -193,8 +181,8 @@ require_once 'includes/header.php';
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 0.4;
+    background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.18) 0%, transparent 60%);
+    pointer-events: none;
 }
 
 .hero-content {
@@ -203,22 +191,22 @@ require_once 'includes/header.php';
 }
 
 .stat-card {
-    transition: all 0.3s ease;
-    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: var(--bg-white);
     border: 1px solid var(--border-light);
+    border-radius: 16px;
 }
 
 .stat-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--gradient-cyan);
+    border-color: #cbd5e1;
 }
 
 .stat-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -228,38 +216,37 @@ require_once 'includes/header.php';
 .blog-post-card {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid var(--border-light);
+    border-radius: 16px;
     overflow: hidden;
     background: var(--bg-white);
 }
 
 .blog-post-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--gradient-cyan);
+    border-color: #cbd5e1;
 }
 
 .blog-post-image {
     height: 220px;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
 }
 
 .blog-post-card:hover .blog-post-image {
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 .blog-post-title {
-    transition: color 0.3s ease;
-    font-weight: 600;
+    transition: color 0.2s ease;
+    font-weight: 700;
+    font-size: 1.25rem;
     line-height: 1.4;
     color: var(--text-dark);
 }
 
 .blog-post-title:hover {
-    background: linear-gradient(135deg, var(--gradient-cyan) 0%, var(--gradient-purple) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary-indigo) !important;
 }
 
 .feature-card {
@@ -274,178 +261,143 @@ require_once 'includes/header.php';
 .feature-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--gradient-purple);
-}
-
-.feature-card:hover .feature-icon-wrapper {
-    transform: scale(1.05);
+    border-color: #cbd5e1;
 }
 
 .feature-icon-wrapper {
-    width: 70px;
-    height: 70px;
+    width: 64px;
+    height: 64px;
     border-radius: 14px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease;
-    margin-bottom: 1.5rem;
-}
-
-.pulse-animation {
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    margin-bottom: 1.25rem;
+    background: #eef2ff;
+    color: var(--primary-indigo);
+    font-size: 1.75rem;
 }
 
 .floating-badge {
     display: inline-block;
-    padding: 0.4rem 0.9rem;
-    background: rgba(255, 255, 255, 0.25);
+    padding: 0.4rem 1rem;
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 20px;
-    backdrop-filter: blur(10px);
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 600;
+    color: #c7d2fe;
+    letter-spacing: 0.5px;
     margin-bottom: 1.5rem;
 }
 
-.avatar-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-.stats-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.35rem 0.65rem;
-    background: var(--bg-light);
-    border-radius: 8px;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    font-weight: 500;
-}
-
 .btn-gradient-primary {
-    background: linear-gradient(135deg, var(--gradient-cyan) 0%, var(--gradient-purple) 100%);
+    background: #4f46e5;
     border: none;
     color: white;
     font-weight: 600;
-    transition: all 0.3s ease;
+    border-radius: 12px;
+    transition: all 0.2s ease;
 }
 
 .btn-gradient-primary:hover {
-    background: linear-gradient(135deg, var(--gradient-cyan-light) 0%, var(--gradient-purple-deep) 100%);
+    background: #4338ca;
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 8px 16px -4px rgba(79, 70, 229, 0.4);
     color: white;
 }
 
 .section-badge {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    background: linear-gradient(135deg, rgba(0, 206, 209, 0.1) 0%, rgba(106, 90, 205, 0.1) 100%);
-    color: var(--gradient-purple);
+    padding: 0.4rem 0.9rem;
+    background: #eef2ff;
+    color: var(--primary-indigo);
     border-radius: 20px;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    border: 1px solid rgba(106, 90, 205, 0.2);
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, var(--gradient-cyan) 0%, var(--gradient-purple) 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 </style>
 
-<!-- Hero Section - Cyan to Purple Gradient -->
-<section class="hero-section py-5" style="color: white;">
-    <div class="container hero-content">
-        <div class="row align-items-center justify-content-center" style="min-height: 500px;">
-            <!-- Main Content - Centered -->
-            <div class="col-lg-10 col-xl-9 text-center mb-5">
-                <div class="floating-badge d-inline-block">
-                    <i class="bi bi-stars"></i> Where Creativity Meets Voice
+<!-- Hero Section -->
+<section class="hero-section py-5 text-white">
+    <div class="container hero-content py-4">
+        <div class="row align-items-center justify-content-center" style="min-height: 440px;">
+            <div class="col-lg-10 col-xl-9 text-center">
+                <div class="floating-badge">
+                    <i class="bi bi-stars me-1"></i> WHERE CREATIVITY MEETS VOICE
                 </div>
-                <h1 class="display-2 fw-bold mb-4" style="line-height: 1.2;">
-                    Welcome to <br>
-                    <span style="color: #FFE4B5; font-size: 1.3em;">Inkora</span>
+                <h1 class="display-3 fw-bold mb-4 text-white" style="letter-spacing: -1px; line-height: 1.15;">
+                    Stories that inspire.<br>
+                    <span style="color: #c7d2fe;">Ideas that connect.</span>
                 </h1>
-                <p class="lead mb-5 fs-4 mx-auto" style="opacity: 0.95; line-height: 1.6; max-width: 800px;">
+                <p class="lead mb-5 fs-5 mx-auto text-slate-300" style="color: #cbd5e1; line-height: 1.7; max-width: 760px;">
                     Transform your thoughts into powerful stories. Join a vibrant community of writers, thinkers, and storytellers shaping the future of creative expression.
                 </p>
                 
                 <!-- Call-to-Action Buttons -->
                 <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mb-5">
                     <?php if (isLoggedIn()): ?>
-                        <a href="<?php echo url('posts/create.php'); ?>" class="btn btn-light btn-lg px-5 py-3 shadow-sm" style="font-weight: 600;">
-                            <i class="bi bi-pencil-square me-2"></i> Start Writing
+                        <a href="<?php echo url('posts/create.php'); ?>" class="btn btn-light btn-lg px-5 py-3 shadow-sm fw-semibold" style="border-radius: 12px; color: #0f172a;">
+                            <i class="bi bi-pencil-square me-2 text-primary"></i> Start Writing
                         </a>
-                        <a href="<?php echo url('posts/index.php'); ?>" class="btn btn-outline-light btn-lg px-5 py-3" style="font-weight: 600;">
+                        <a href="<?php echo url('posts/index.php'); ?>" class="btn btn-outline-light btn-lg px-5 py-3 fw-semibold" style="border-radius: 12px; border-color: rgba(255,255,255,0.3);">
                             <i class="bi bi-compass me-2"></i> Explore Stories
                         </a>
                     <?php else: ?>
-                        <a href="<?php echo url('auth/register.php'); ?>" class="btn btn-light btn-lg px-5 py-3 shadow-sm" style="font-weight: 600;">
-                            <i class="bi bi-rocket-takeoff me-2"></i> Get Started Free
+                        <a href="<?php echo url('auth/register.php'); ?>" class="btn btn-light btn-lg px-5 py-3 shadow-sm fw-semibold" style="border-radius: 12px; color: #0f172a;">
+                            <i class="bi bi-rocket-takeoff me-2 text-primary"></i> Get Started Free
                         </a>
-                        <a href="<?php echo url('posts/index.php'); ?>" class="btn btn-outline-light btn-lg px-5 py-3" style="font-weight: 600;">
+                        <a href="<?php echo url('posts/index.php'); ?>" class="btn btn-outline-light btn-lg px-5 py-3 fw-semibold" style="border-radius: 12px; border-color: rgba(255,255,255,0.3);">
                             <i class="bi bi-compass me-2"></i> Explore Stories
                         </a>
                     <?php endif; ?>
                 </div>
                 
-                <!-- Trust Indicators - Centered -->
-                <div class="d-flex gap-4 justify-content-center flex-wrap" style="opacity: 0.92;">
+                <!-- Trust Indicators -->
+                <div class="d-flex gap-4 justify-content-center flex-wrap" style="color: #cbd5e1; font-size: 0.95rem;">
                     <div class="d-flex align-items-center gap-2">
-                        <i class="bi bi-check-circle-fill" style="color: #FFE4B5;"></i>
-                        <span class="small">No Credit Card Required</span>
+                        <i class="bi bi-check-circle-fill text-info"></i>
+                        <span>Free Forever</span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
-                        <i class="bi bi-check-circle-fill" style="color: #FFE4B5;"></i>
-                        <span class="small">Free Forever</span>
+                        <i class="bi bi-check-circle-fill text-info"></i>
+                        <span>Rich Formatting</span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
-                        <i class="bi bi-check-circle-fill" style="color: #FFE4B5;"></i>
-                        <span class="small">Join <?php echo formatNumber($stats['total_users']); ?>+ Writers</span>
+                        <i class="bi bi-check-circle-fill text-info"></i>
+                        <span>Join <?php echo formatNumber($stats['total_users']); ?>+ Writers</span>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Decorative Icon - Centered Below -->
-            <div class="col-12 text-center mt-4">
-                <div class="position-relative d-inline-block">
-                    <i class="bi bi-feather pulse-animation" style="font-size: 8rem; opacity: 0.25;"></i>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Statistics Section - Clean White Design -->
-<section class="stats-section py-5" style="background: var(--bg-white); margin-top: -50px; position: relative; z-index: 10;">
+<!-- Statistics Section -->
+<section class="stats-section py-5" style="background: transparent; margin-top: -40px; position: relative; z-index: 10;">
     <div class="container">
         <div class="row g-4">
             <div class="col-md-3 col-sm-6">
-                <div class="stat-card rounded-4 shadow-sm p-4 text-center">
-                    <div class="stat-icon mx-auto" style="background: linear-gradient(135deg, rgba(0, 206, 209, 0.1) 0%, rgba(106, 90, 205, 0.1) 100%); color: var(--gradient-cyan);">
+                <div class="stat-card shadow-sm p-4 text-center">
+                    <div class="stat-icon mx-auto" style="background: #eef2ff; color: #4f46e5;">
                         <i class="bi bi-file-text" style="font-size: 1.75rem;"></i>
                     </div>
-                    <h2 class="fw-bold mb-1 gradient-text" style="font-size: 2.5rem;"><?php echo formatNumber($stats['total_posts']); ?>+</h2>
+                    <h2 class="fw-bold mb-1 gradient-text" style="font-size: 2.25rem;"><?php echo formatNumber($stats['total_posts']); ?>+</h2>
                     <p class="text-muted mb-0 fw-semibold">Stories Published</p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
-                <div class="stat-card rounded-4 shadow-sm p-4 text-center">
-                    <div class="stat-icon mx-auto" style="background: #f0fff4; color: #38a169;">
+                <div class="stat-card shadow-sm p-4 text-center">
+                    <div class="stat-icon mx-auto" style="background: #f0fdf4; color: #16a34a;">
                         <i class="bi bi-people" style="font-size: 1.75rem;"></i>
                     </div>
-                    <h2 class="fw-bold mb-1" style="font-size: 2.5rem; color: var(--text-dark);"><?php echo formatNumber($stats['total_users']); ?>+</h2>
+                    <h2 class="fw-bold mb-1" style="font-size: 2.25rem; color: #0f172a;"><?php echo formatNumber($stats['total_users']); ?>+</h2>
                     <p class="text-muted mb-0 fw-semibold">Active Writers</p>
                 </div>
             </div>

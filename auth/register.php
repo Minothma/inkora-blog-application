@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif (strlen($username) > USERNAME_MAX_LENGTH) {
             $errors[] = "Username must not exceed " . USERNAME_MAX_LENGTH . " characters.";
         } elseif (!preg_match(USERNAME_PATTERN, $username)) {
-            $errors[] = "Username can only contain letters, numbers,spaces and underscores.";
+            $errors[] = "Username can only contain letters, numbers, spaces and underscores.";
         } elseif (preg_match('/^\s|\s$/', $username)) {
             $errors[] = "Username cannot start or end with spaces.";
         } elseif (preg_match('/\s{2,}/', $username)) {
@@ -189,407 +189,186 @@ function handleProfilePictureUpload($file) {
 require_once '../includes/header.php';
 ?>
 
-<style>
-/* Cyan to Purple Gradient Design */
-:root {
-    --gradient-cyan: #00CED1;
-    --gradient-cyan-light: #20B2C4;
-    --gradient-purple: #6A5ACD;
-    --gradient-purple-deep: #7B68BE;
-    --gradient-navy: #0B1A2D;
-    --accent-warm: #FFE4B5;
-    --text-dark: #2d3748;
-    --text-muted: #718096;
-    --bg-light: #f7fafc;
-    --border-light: #e2e8f0;
-}
-
-body {
-    background: linear-gradient(180deg, 
-        var(--gradient-cyan) 0%, 
-        var(--gradient-cyan-light) 25%,
-        var(--gradient-purple) 60%, 
-        var(--gradient-purple-deep) 80%,
-        var(--gradient-navy) 100%
-    );
-    min-height: 100vh;
-    position: relative;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 0.4;
-    z-index: 0;
-}
-
-.register-wrapper {
-    position: relative;
-    z-index: 1;
-    min-height: calc(100vh - 200px);
-    display: flex;
-    align-items: center;
-    padding: 3rem 0;
-}
-
-.register-card {
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    overflow: hidden;
-    animation: slideUp 0.6s ease-out;
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.register-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, var(--gradient-cyan) 0%, var(--gradient-purple) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 206, 209, 0.3);
-}
-
-.register-icon i {
-    font-size: 2.5rem;
-    color: white;
-}
-
-.form-control {
-    border-radius: 12px;
-    padding: 0.85rem 1rem;
-    border: 2px solid var(--border-light);
-    transition: all 0.3s ease;
-    font-size: 1rem;
-}
-
-.form-control:focus {
-    border-color: var(--gradient-cyan);
-    box-shadow: 0 0 0 4px rgba(0, 206, 209, 0.1);
-    background: rgba(0, 206, 209, 0.02);
-}
-
-.form-label {
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-}
-
-.form-text {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-top: 0.5rem;
-}
-
-.input-group .btn-outline-secondary {
-    border-radius: 0 12px 12px 0;
-    border: 2px solid var(--border-light);
-    border-left: none;
-    background: white;
-    transition: all 0.3s ease;
-}
-
-.input-group .btn-outline-secondary:hover {
-    background: var(--bg-light);
-    border-color: var(--gradient-cyan);
-}
-
-.input-group .form-control {
-    border-radius: 12px 0 0 12px;
-}
-
-.btn-gradient-primary {
-    background: linear-gradient(135deg, var(--gradient-cyan) 0%, var(--gradient-purple) 100%);
-    border: none;
-    color: white;
-    font-weight: 600;
-    padding: 0.85rem 2rem;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 206, 209, 0.3);
-}
-
-.btn-gradient-primary:hover {
-    background: linear-gradient(135deg, var(--gradient-cyan-light) 0%, var(--gradient-purple-deep) 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 206, 209, 0.4);
-    color: white;
-}
-
-.register-card a {
-    color: var(--gradient-purple);
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.register-card a:hover {
-    color: var(--gradient-cyan);
-}
-
-.alert {
-    border-radius: 12px;
-    border: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.alert-danger {
-    background: linear-gradient(135deg, #fee, #fdd);
-    color: #c33;
-    border-left: 4px solid #e53e3e;
-}
-
-.alert-success {
-    background: linear-gradient(135deg, #d4edda, #c3e6cb);
-    color: #155724;
-    border-left: 4px solid #28a745;
-}
-
-.divider {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 1.5rem 0;
-}
-
-.divider::before,
-.divider::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid var(--border-light);
-}
-
-.divider span {
-    padding: 0 1rem;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.login-link-box {
-    background: var(--bg-light);
-    border-radius: 12px;
-    padding: 1.5rem;
-    text-align: center;
-    margin-top: 1.5rem;
-}
-
-@media (max-width: 576px) {
-    .register-card {
-        border-radius: 16px;
-        margin: 1rem;
-    }
-    .register-icon {
-        width: 60px;
-        height: 60px;
-    }
-    .register-icon i {
-        font-size: 2rem;
-    }
-}
-</style>
-
-<!-- Register Form -->
-<div class="register-wrapper">
+<div class="auth-section py-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6 col-xl-5">
                 
                 <!-- Register Card -->
-                <div class="register-card">
-                    <div class="card-body p-4 p-md-5">
+                <div class="card auth-card border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+                    <div class="card-body p-4 p-sm-5">
                         
                         <!-- Header -->
                         <div class="text-center mb-4">
-                            <div class="register-icon">
+                            <div class="auth-icon-badge mb-3">
                                 <i class="bi bi-person-plus-fill"></i>
                             </div>
-                            <h2 class="fw-bold mb-2" style="color: var(--text-dark);">Create Account</h2>
-                            <p class="text-muted mb-0">Join Inkora and start sharing your stories</p>
+                            <h2 class="fw-bold mb-1" style="color: #0F172A; font-size: 1.6rem; letter-spacing: -0.02em;">Create an Account</h2>
+                            <p class="text-muted small">Join Inkora to publish stories and follow writers</p>
                         </div>
                         
                         <!-- Success Message -->
                         <?php if ($success): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <i class="bi bi-check-circle-fill me-2"></i>
-                                <strong>Success!</strong> Your account has been created successfully.
-                                <br><small>Redirecting to login page...</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                                    <div>
+                                        <strong>Success!</strong> Registration completed. Redirecting to login...
+                                    </div>
+                                </div>
                             </div>
                         <?php endif; ?>
                         
                         <!-- Error Messages -->
                         <?php if (!empty($errors)): ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                                <?php if (count($errors) === 1): ?>
-                                    <strong><?php echo htmlspecialchars($errors[0]); ?></strong>
-                                <?php else: ?>
-                                    <strong>Please fix the following errors:</strong>
-                                    <ul class="mb-0 mt-2">
-                                        <?php foreach ($errors as $error): ?>
-                                            <li><?php echo htmlspecialchars($error); ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                <?php endif; ?>
+                            <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-exclamation-circle-fill me-2 fs-5"></i>
+                                    <div>
+                                        <?php if (count($errors) === 1): ?>
+                                            <span><?php echo htmlspecialchars($errors[0]); ?></span>
+                                        <?php else: ?>
+                                            <ul class="mb-0 ps-3">
+                                                <?php foreach ($errors as $error): ?>
+                                                    <li><?php echo htmlspecialchars($error); ?></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
                         <?php endif; ?>
                         
-                        <!-- Registration Form -->
-                        <?php if (!$success): ?>
-                            <form method="POST" action="" enctype="multipart/form-data" id="registerForm" class="needs-validation" novalidate>
-                                
-                                <!-- CSRF Token -->
-                                <?php echo csrfField(); ?>
-                                
-                                <!-- Username -->
-                                <div class="mb-3">
-                                    <label for="username" class="form-label">
-                                        <i class="bi bi-person-fill me-1"></i> Username
-                                    </label>
+                        <!-- Register Form -->
+                        <form method="POST" action="" enctype="multipart/form-data" class="needs-validation" novalidate>
+                            
+                            <!-- CSRF Token -->
+                            <?php echo csrfField(); ?>
+                            
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label for="username" class="form-label text-slate-700 fw-semibold small">
+                                    Username *
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-slate-400" style="border-radius: 10px 0 0 10px; border-color: #CBD5E1;">
+                                        <i class="bi bi-person"></i>
+                                    </span>
                                     <input type="text" 
-                                           class="form-control" 
+                                           class="form-control border-start-0" 
                                            id="username" 
                                            name="username" 
                                            value="<?php echo htmlspecialchars($username); ?>"
-                                           placeholder="Enter your full name or username"
-                                           minlength="<?php echo USERNAME_MIN_LENGTH; ?>"
-                                           maxlength="<?php echo USERNAME_MAX_LENGTH; ?>"
-                                           required>
-                                    <div class="form-text">
-                                        <i class="bi bi-info-circle me-1"></i>
-                                        <?php echo USERNAME_MIN_LENGTH; ?>-<?php echo USERNAME_MAX_LENGTH; ?> characters, letters, numbers, and underscores only
-                                    </div>
+                                           placeholder="Choose your handle"
+                                           style="border-radius: 0 10px 10px 0;"
+                                           required
+                                           autofocus>
                                 </div>
-                                
-                                <!-- Email -->
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">
-                                        <i class="bi bi-envelope-fill me-1"></i> Email Address
-                                    </label>
+                            </div>
+                            
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label text-slate-700 fw-semibold small">
+                                    Email Address *
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-slate-400" style="border-radius: 10px 0 0 10px; border-color: #CBD5E1;">
+                                        <i class="bi bi-envelope"></i>
+                                    </span>
                                     <input type="email" 
-                                           class="form-control" 
+                                           class="form-control border-start-0" 
                                            id="email" 
                                            name="email" 
                                            value="<?php echo htmlspecialchars($email); ?>"
-                                           placeholder="your.email@example.com"
-                                           maxlength="<?php echo EMAIL_MAX_LENGTH; ?>"
+                                           placeholder="name@example.com"
+                                           style="border-radius: 0 10px 10px 0;"
                                            required>
                                 </div>
-                                
-                                <!-- Password -->
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">
-                                        <i class="bi bi-lock-fill me-1"></i> Password
-                                    </label>
-                                    <div class="input-group">
-                                        <input type="password" 
-                                               class="form-control" 
-                                               id="password" 
-                                               name="password" 
-                                               placeholder="Create a strong password"
-                                               minlength="<?php echo PASSWORD_MIN_LENGTH; ?>"
-                                               required>
-                                        <button class="btn btn-outline-secondary" 
-                                                type="button" 
-                                                onclick="togglePasswordVisibility('password', 'toggleIcon1')">
-                                            <i class="bi bi-eye" id="toggleIcon1"></i>
-                                        </button>
-                                    </div>
-                                    <div class="form-text">
-                                        <i class="bi bi-info-circle me-1"></i>
-                                        Minimum <?php echo PASSWORD_MIN_LENGTH; ?> characters with uppercase, lowercase, number, and special character
-                                    </div>
-                                </div>
-                                
-                                <!-- Confirm Password -->
-                                <div class="mb-3">
-                                    <label for="confirm_password" class="form-label">
-                                        <i class="bi bi-lock-fill me-1"></i> Confirm Password
-                                    </label>
-                                    <div class="input-group">
-                                        <input type="password" 
-                                               class="form-control" 
-                                               id="confirm_password" 
-                                               name="confirm_password" 
-                                               placeholder="Re-enter your password"
-                                               required>
-                                        <button class="btn btn-outline-secondary" 
-                                                type="button" 
-                                                onclick="togglePasswordVisibility('confirm_password', 'toggleIcon2')">
-                                            <i class="bi bi-eye" id="toggleIcon2"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <!-- Bio (Optional) -->
-                                <div class="mb-3">
-                                    <label for="bio" class="form-label">
-                                        <i class="bi bi-textarea-t me-1"></i> Bio (Optional)
-                                    </label>
-                                    <textarea class="form-control" 
-                                              id="bio" 
-                                              name="bio" 
-                                              rows="3" 
-                                              placeholder="Tell us about yourself..."
-                                              maxlength="500"><?php echo htmlspecialchars($_POST['bio'] ?? ''); ?></textarea>
-                                    <div class="form-text">
-                                        <i class="bi bi-info-circle me-1"></i>
-                                        Maximum 500 characters
-                                    </div>
-                                </div>
-                                
-                                <!-- Profile Picture (Optional) -->
-                                <div class="mb-4">
-                                    <label for="profile_picture" class="form-label">
-                                        <i class="bi bi-image me-1"></i> Profile Picture (Optional)
-                                    </label>
-                                    <input type="file" 
-                                           class="form-control" 
-                                           id="profile_picture" 
-                                           name="profile_picture" 
-                                           accept="image/*">
-                                    <div class="form-text">
-                                        <i class="bi bi-info-circle me-1"></i>
-                                        Max size: <?php echo MAX_UPLOAD_SIZE_MB; ?>MB. Formats: JPG, PNG, GIF, WEBP
-                                    </div>
-                                </div>
-                                
-                                <!-- Submit Button -->
-                                <div class="d-grid mb-3">
-                                    <button type="submit" class="btn btn-gradient-primary btn-lg">
-                                        <i class="bi bi-person-plus-fill me-2"></i> Create Account
+                            </div>
+                            
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label text-slate-700 fw-semibold small">
+                                    Password *
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-slate-400" style="border-radius: 10px 0 0 10px; border-color: #CBD5E1;">
+                                        <i class="bi bi-lock"></i>
+                                    </span>
+                                    <input type="password" 
+                                           class="form-control border-start-0 border-end-0" 
+                                           id="password" 
+                                           name="password" 
+                                           placeholder="At least 8 characters"
+                                           required>
+                                    <button class="btn btn-outline-secondary border-start-0 text-slate-400" 
+                                            type="button" 
+                                            onclick="togglePasswordVisibility('password', 'toggleIcon1')"
+                                            style="border-radius: 0 10px 10px 0; border-color: #CBD5E1;">
+                                        <i class="bi bi-eye" id="toggleIcon1"></i>
                                     </button>
                                 </div>
-                            </form>
-                            
-                            <!-- Divider -->
-                            <div class="divider">
-                                <span>or</span>
                             </div>
                             
-                            <!-- Login Link -->
-                            <div class="login-link-box">
-                                <p class="mb-2">Already have an account?</p>
-                                <a href="<?php echo url('auth/login.php'); ?>" class="btn btn-outline-secondary w-100" style="border-radius: 12px; font-weight: 600;">
-                                    <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
-                                </a>
+                            <!-- Confirm Password -->
+                            <div class="mb-3">
+                                <label for="confirm_password" class="form-label text-slate-700 fw-semibold small">
+                                    Confirm Password *
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-slate-400" style="border-radius: 10px 0 0 10px; border-color: #CBD5E1;">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </span>
+                                    <input type="password" 
+                                           class="form-control border-start-0 border-end-0" 
+                                           id="confirm_password" 
+                                           name="confirm_password" 
+                                           placeholder="Re-enter password"
+                                           required>
+                                    <button class="btn btn-outline-secondary border-start-0 text-slate-400" 
+                                            type="button" 
+                                            onclick="togglePasswordVisibility('confirm_password', 'toggleIcon2')"
+                                            style="border-radius: 0 10px 10px 0; border-color: #CBD5E1;">
+                                        <i class="bi bi-eye" id="toggleIcon2"></i>
+                                    </button>
+                                </div>
                             </div>
-                        <?php endif; ?>
+
+                            <!-- Optional Avatar Upload -->
+                            <div class="mb-4">
+                                <label for="profile_picture" class="form-label text-slate-700 fw-semibold small">
+                                    Profile Picture <span class="text-muted fw-normal">(Optional)</span>
+                                </label>
+                                <input type="file" 
+                                       class="form-control" 
+                                       id="profile_picture" 
+                                       name="profile_picture" 
+                                       accept="image/*">
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 10px; font-weight: 600; font-size: 1rem; padding: 0.75rem;">
+                                    <span>Create Account</span>
+                                    <i class="bi bi-arrow-right ms-1"></i>
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Divider -->
+                        <div class="d-flex align-items-center my-4">
+                            <hr class="flex-grow-1 my-0" style="border-color: #E2E8F0;">
+                            <span class="px-3 text-muted small">Already registered?</span>
+                            <hr class="flex-grow-1 my-0" style="border-color: #E2E8F0;">
+                        </div>
+                        
+                        <!-- Login Link -->
+                        <div class="text-center">
+                            <a href="<?php echo url('auth/login.php'); ?>" class="btn btn-outline-secondary w-100" style="border-radius: 10px; font-weight: 600; padding: 0.65rem;">
+                                Sign In Instead
+                            </a>
+                        </div>
                         
                     </div>
                 </div>
@@ -599,10 +378,33 @@ body::before {
     </div>
 </div>
 
-<!-- Password Toggle Script -->
+<style>
+.auth-section {
+    min-height: calc(100vh - 350px);
+    display: flex;
+    align-items: center;
+}
+.auth-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0 !important;
+}
+.auth-icon-badge {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: #EEF2FF;
+    color: #4F46E5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+}
+</style>
+
 <script>
-function togglePasswordVisibility(inputId, iconId) {
-    const passwordInput = document.getElementById(inputId);
+function togglePasswordVisibility(fieldId, iconId) {
+    const passwordInput = document.getElementById(fieldId);
     const toggleIcon = document.getElementById(iconId);
     
     if (passwordInput.type === 'password') {
@@ -616,82 +418,19 @@ function togglePasswordVisibility(inputId, iconId) {
     }
 }
 
-// Username real-time validation
-document.getElementById('username')?.addEventListener('input', function(e) {
-    const username = e.target.value;
-    
-    // Remove any existing feedback
-    const existingFeedback = e.target.parentElement.querySelector('.invalid-feedback, .valid-feedback');
-    if (existingFeedback) {
-        existingFeedback.remove();
-    }
-    
-    e.target.classList.remove('is-invalid', 'is-valid');
-    
-    if (username.length === 0) return;
-    
-    const feedback = document.createElement('div');
-    
-    // Check for leading/trailing spaces
-    if (username !== username.trim()) {
-        feedback.className = 'invalid-feedback d-block';
-        feedback.innerHTML = '<i class="bi bi-x-circle me-1"></i>Username cannot start or end with spaces';
-        e.target.classList.add('is-invalid');
-        e.target.parentElement.appendChild(feedback);
-        return;
-    }
-    
-    // Check for consecutive spaces
-    if (/\s{2,}/.test(username)) {
-        feedback.className = 'invalid-feedback d-block';
-        feedback.innerHTML = '<i class="bi bi-x-circle me-1"></i>Username cannot contain consecutive spaces';
-        e.target.classList.add('is-invalid');
-        e.target.parentElement.appendChild(feedback);
-        return;
-    }
-    
-    // Check for invalid characters
-    if (!/^[a-zA-Z0-9_ ]+$/.test(username)) {
-        feedback.className = 'invalid-feedback d-block';
-        feedback.innerHTML = '<i class="bi bi-x-circle me-1"></i>Only letters, numbers, underscores, and spaces allowed';
-        e.target.classList.add('is-invalid');
-        e.target.parentElement.appendChild(feedback);
-        return;
-    }
-    
-    // Check minimum length
-    if (username.length < <?php echo USERNAME_MIN_LENGTH; ?>) {
-        feedback.className = 'invalid-feedback d-block';
-        feedback.innerHTML = '<i class="bi bi-x-circle me-1"></i>Username must be at least <?php echo USERNAME_MIN_LENGTH; ?> characters';
-        e.target.classList.add('is-invalid');
-        e.target.parentElement.appendChild(feedback);
-        return;
-    }
-    
-    // Valid username
-    feedback.className = 'valid-feedback d-block';
-    feedback.innerHTML = '<i class="bi bi-check-circle me-1"></i>Username looks good!';
-    e.target.classList.add('is-valid');
-    e.target.parentElement.appendChild(feedback);
-});
-
-// Form submission loading state
-document.getElementById('registerForm')?.addEventListener('submit', function(e) {
-    if (this.checkValidity()) {
-        const submitBtn = this.querySelector('button[type="submit"]');
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Creating Account...';
-    }
-});
-
-// Auto-hide alerts after 5 seconds
-setTimeout(function() {
-    const alerts = document.querySelectorAll('.alert:not(.alert-success)');
-    alerts.forEach(function(alert) {
-        const bsAlert = new bootstrap.Alert(alert);
-        bsAlert.close();
+(function() {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
     });
-}, 5000);
+})();
 </script>
 
 <?php

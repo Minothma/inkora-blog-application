@@ -1,6 +1,7 @@
 <?php
 /**
  * Change Password Page
+ * Theme: Nordic Slate & Deep Indigo
  */
 
 // Set page title
@@ -96,11 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Success
                 $success = true;
                 setFlashMessage(MSG_PASSWORD_CHANGED, 'success');
-                
-                // Optional: Log out user to require re-login with new password
-                // destroySession();
-                // header('Location: ' . url('auth/login.php'));
-                // exit();
             } catch (PDOException $e) {
                 error_log("Change password error: " . $e->getMessage());
                 $errors[] = "An error occurred while changing your password. Please try again.";
@@ -113,45 +109,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 require_once '../includes/header.php';
 ?>
 
-<!-- Change Password Page -->
-<div class="container my-5">
+<!-- Hero Banner -->
+<div class="password-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <span class="badge-pill badge-gradient mb-2 d-inline-block">
+                    <i class="bi bi-shield-lock-fill me-1"></i> Security Center
+                </span>
+                <h1 class="text-white fw-bold display-6 mb-1">Change Password</h1>
+                <p class="text-slate-300 mb-0">Update and strengthen your account credentials.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
     <div class="row">
         <div class="col-lg-6 mx-auto">
             
-            <!-- Page Header -->
-            <div class="mb-4">
-                <h1 class="display-6 fw-bold">
-                    <i class="bi bi-shield-lock text-primary"></i> Change Password
-                </h1>
-                <p class="text-muted">Update your account password</p>
-            </div>
-            
             <!-- Success Message -->
             <?php if ($success): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="bi bi-check-circle-fill me-2"></i>
-                    <strong>Success!</strong> Your password has been changed successfully.
+                <div class="alert alert-success alert-dismissible fade show mb-4" role="alert" style="border-radius: 14px;">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                        <div>
+                            <strong>Success!</strong> Your password has been changed successfully.
+                        </div>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             <?php endif; ?>
             
             <!-- Error Messages -->
             <?php if (!empty($errors)): ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <strong>Please fix the following errors:</strong>
-                    <ul class="mb-0 mt-2">
-                        <?php foreach ($errors as $error): ?>
-                            <li><?php echo htmlspecialchars($error); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert" style="border-radius: 14px;">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+                        <div>
+                            <strong>Please fix the following errors:</strong>
+                            <ul class="mb-0 ps-3 mt-1">
+                                <?php foreach ($errors as $error): ?>
+                                    <li><?php echo htmlspecialchars($error); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             <?php endif; ?>
             
-            <!-- Change Password Form -->
-            <div class="card shadow-sm border-0">
-                <div class="card-body p-4">
+            <!-- Change Password Card -->
+            <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px; border: 1px solid #E2E8F0; overflow: hidden;">
+                <div class="card-body p-4 p-md-5">
                     
                     <form method="POST" action="" class="needs-validation" novalidate id="changePasswordForm">
                         
@@ -160,100 +170,95 @@ require_once '../includes/header.php';
                         
                         <!-- Current Password -->
                         <div class="mb-4">
-                            <label for="current_password" class="form-label fw-bold">
-                                <i class="bi bi-lock"></i> Current Password *
+                            <label for="current_password" class="form-label text-slate-800 fw-bold small">
+                                Current Password <span class="text-danger">*</span>
                             </label>
                             <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 text-slate-400" style="border-radius: 10px 0 0 10px; border-color: #CBD5E1;">
+                                    <i class="bi bi-lock"></i>
+                                </span>
                                 <input type="password" 
-                                       class="form-control" 
+                                       class="form-control border-start-0 border-end-0" 
                                        id="current_password" 
                                        name="current_password" 
                                        placeholder="Enter your current password"
                                        required>
-                                <button class="btn btn-outline-secondary" 
+                                <button class="btn btn-outline-secondary border-start-0 text-slate-400" 
                                         type="button" 
-                                        onclick="togglePassword('current_password', this)">
+                                        onclick="togglePassword('current_password', this)"
+                                        style="border-radius: 0 10px 10px 0; border-color: #CBD5E1;">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
                         </div>
                         
-                        <hr class="my-4">
+                        <hr class="my-4" style="border-color: #F1F5F9;">
                         
                         <!-- New Password -->
                         <div class="mb-4">
-                            <label for="new_password" class="form-label fw-bold">
-                                <i class="bi bi-key"></i> New Password *
+                            <label for="new_password" class="form-label text-slate-800 fw-bold small">
+                                New Password <span class="text-danger">*</span>
                             </label>
                             <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 text-slate-400" style="border-radius: 10px 0 0 10px; border-color: #CBD5E1;">
+                                    <i class="bi bi-key"></i>
+                                </span>
                                 <input type="password" 
-                                       class="form-control" 
+                                       class="form-control border-start-0 border-end-0" 
                                        id="new_password" 
                                        name="new_password" 
-                                       placeholder="Enter new password"
+                                       placeholder="At least 8 characters"
                                        minlength="<?php echo PASSWORD_MIN_LENGTH; ?>"
                                        required>
-                                <button class="btn btn-outline-secondary" 
+                                <button class="btn btn-outline-secondary border-start-0 text-slate-400" 
                                         type="button" 
-                                        onclick="togglePassword('new_password', this)">
+                                        onclick="togglePassword('new_password', this)"
+                                        style="border-radius: 0 10px 10px 0; border-color: #CBD5E1;">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
-                            <div class="form-text">
-                                Minimum <?php echo PASSWORD_MIN_LENGTH; ?> characters with uppercase, lowercase, number, and special character
-                            </div>
                             
-                            <!-- Password Strength Indicator -->
+                            <!-- Strength Indicator -->
                             <div id="password-strength" class="mt-2" style="display: none;">
-                                <small class="text-muted">Password Strength:</small>
-                                <div class="progress" style="height: 5px;">
+                                <div class="progress mb-1" style="height: 6px; border-radius: 4px; background: #F1F5F9;">
                                     <div id="strength-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
                                 </div>
-                                <small id="strength-text" class="text-muted"></small>
+                                <small id="strength-text" class="text-muted fw-semibold"></small>
                             </div>
                         </div>
                         
                         <!-- Confirm New Password -->
                         <div class="mb-4">
-                            <label for="confirm_password" class="form-label fw-bold">
-                                <i class="bi bi-key-fill"></i> Confirm New Password *
+                            <label for="confirm_password" class="form-label text-slate-800 fw-bold small">
+                                Confirm New Password <span class="text-danger">*</span>
                             </label>
                             <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 text-slate-400" style="border-radius: 10px 0 0 10px; border-color: #CBD5E1;">
+                                    <i class="bi bi-key-fill"></i>
+                                </span>
                                 <input type="password" 
-                                       class="form-control" 
+                                       class="form-control border-start-0 border-end-0" 
                                        id="confirm_password" 
                                        name="confirm_password" 
                                        placeholder="Re-enter new password"
                                        required>
-                                <button class="btn btn-outline-secondary" 
+                                <button class="btn btn-outline-secondary border-start-0 text-slate-400" 
                                         type="button" 
-                                        onclick="togglePassword('confirm_password', this)">
+                                        onclick="togglePassword('confirm_password', this)"
+                                        style="border-radius: 0 10px 10px 0; border-color: #CBD5E1;">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
-                            <div id="password-match" class="form-text"></div>
-                        </div>
-                        
-                        <!-- Password Requirements -->
-                        <div class="alert alert-info">
-                            <small>
-                                <strong>Password Requirements:</strong>
-                                <ul class="mb-0 mt-2">
-                                    <li>At least <?php echo PASSWORD_MIN_LENGTH; ?> characters long</li>
-                                    <li>Contains uppercase and lowercase letters</li>
-                                    <li>Contains at least one number</li>
-                                    <li>Contains at least one special character (!@#$%^&*)</li>
-                                </ul>
-                            </small>
+                            <div id="password-match" class="form-text small mt-1"></div>
                         </div>
                         
                         <!-- Submit Buttons -->
                         <div class="d-flex justify-content-between align-items-center mt-4">
-                            <a href="<?php echo url('profile/edit.php'); ?>" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-left"></i> Back to Profile
+                            <a href="<?php echo url('profile/edit.php'); ?>" class="btn btn-outline-secondary px-4 py-2" style="border-radius: 10px;">
+                                Cancel
                             </a>
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="bi bi-check-circle"></i> Change Password
+                            <button type="submit" class="btn btn-primary px-4 py-2" style="border-radius: 10px; font-weight: 600;">
+                                <i class="bi bi-shield-check me-1"></i> Update Password
                             </button>
                         </div>
                         
@@ -262,26 +267,31 @@ require_once '../includes/header.php';
                 </div>
             </div>
             
-            <!-- Security Tips -->
-            <div class="alert alert-warning mt-4">
-                <h6 class="alert-heading">
-                    <i class="bi bi-shield-exclamation"></i> Security Tips
-                </h6>
-                <ul class="mb-0">
-                    <li>Never share your password with anyone</li>
-                    <li>Use a unique password for this account</li>
-                    <li>Change your password regularly</li>
-                    <li>Avoid using personal information in your password</li>
-                </ul>
-            </div>
-            
         </div>
     </div>
 </div>
 
-<!-- Password Toggle and Strength Script -->
+<style>
+.password-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    padding: 55px 0;
+    margin-bottom: 35px;
+    border-radius: 0 0 28px 28px;
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.3);
+}
+.badge-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.badge-gradient {
+    background: rgba(255, 255, 255, 0.12);
+    color: #c7d2fe;
+}
+</style>
+
 <script>
-// Toggle password visibility
 function togglePassword(inputId, button) {
     const input = document.getElementById(inputId);
     const icon = button.querySelector('i');
@@ -297,7 +307,6 @@ function togglePassword(inputId, button) {
     }
 }
 
-// Password strength checker
 document.getElementById('new_password').addEventListener('input', function() {
     const password = this.value;
     const strengthDiv = document.getElementById('password-strength');
@@ -310,55 +319,36 @@ document.getElementById('new_password').addEventListener('input', function() {
     }
     
     strengthDiv.style.display = 'block';
-    
     let strength = 0;
-    let feedback = [];
     
-    // Length check
     if (password.length >= 8) strength++;
-    else feedback.push('longer');
-    
-    // Lowercase check
     if (/[a-z]/.test(password)) strength++;
-    else feedback.push('lowercase');
-    
-    // Uppercase check
     if (/[A-Z]/.test(password)) strength++;
-    else feedback.push('uppercase');
-    
-    // Number check
     if (/\d/.test(password)) strength++;
-    else feedback.push('number');
-    
-    // Special character check
     if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
-    else feedback.push('special char');
     
-    // Update strength bar
     const percentage = (strength / 5) * 100;
     strengthBar.style.width = percentage + '%';
     
-    // Update colors and text
-    if (strength <= 1) {
+    if (strength <= 2) {
         strengthBar.className = 'progress-bar bg-danger';
-        strengthText.textContent = 'Weak - Add: ' + feedback.join(', ');
-        strengthText.className = 'text-danger';
+        strengthText.textContent = 'Weak Password';
+        strengthText.className = 'text-danger small';
     } else if (strength <= 3) {
         strengthBar.className = 'progress-bar bg-warning';
-        strengthText.textContent = 'Fair - Add: ' + feedback.join(', ');
-        strengthText.className = 'text-warning';
-    } else if (strength <= 4) {
+        strengthText.textContent = 'Fair Password';
+        strengthText.className = 'text-warning small';
+    } else if (strength === 4) {
         strengthBar.className = 'progress-bar bg-info';
-        strengthText.textContent = 'Good';
-        strengthText.className = 'text-info';
+        strengthText.textContent = 'Good Password';
+        strengthText.className = 'text-info small';
     } else {
         strengthBar.className = 'progress-bar bg-success';
-        strengthText.textContent = 'Strong';
-        strengthText.className = 'text-success';
+        strengthText.textContent = 'Strong Password';
+        strengthText.className = 'text-success small';
     }
 });
 
-// Password match checker
 document.getElementById('confirm_password').addEventListener('input', function() {
     const newPassword = document.getElementById('new_password').value;
     const confirmPassword = this.value;
@@ -370,9 +360,9 @@ document.getElementById('confirm_password').addEventListener('input', function()
     }
     
     if (newPassword === confirmPassword) {
-        matchDiv.innerHTML = '<span class="text-success"><i class="bi bi-check-circle"></i> Passwords match</span>';
+        matchDiv.innerHTML = '<span class="text-success"><i class="bi bi-check-circle me-1"></i> Passwords match</span>';
     } else {
-        matchDiv.innerHTML = '<span class="text-danger"><i class="bi bi-x-circle"></i> Passwords do not match</span>';
+        matchDiv.innerHTML = '<span class="text-danger"><i class="bi bi-x-circle me-1"></i> Passwords do not match</span>';
     }
 });
 </script>

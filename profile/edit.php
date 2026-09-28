@@ -1,6 +1,7 @@
 <?php
 /**
  * Edit Profile Page
+ * Theme: Nordic Slate & Deep Indigo
  */
 
 // Set page title
@@ -140,27 +141,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /**
- * Handle profile picture upload (WITHOUT RESIZING - No GD required)
- * 
- * This version works without GD extension
- * Images are uploaded at their original size
- * 
- * @param array $file Uploaded file from $_FILES
- * @return array Result with success status and filename or error
+ * Handle profile picture upload
  */
 function handleProfilePictureUpload($file) {
-    // Check file size
     if ($file['size'] > MAX_UPLOAD_SIZE) {
         return ['success' => false, 'error' => MSG_FILE_TOO_LARGE];
     }
     
-    // Check file type
     $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     if (!in_array($fileExtension, ALLOWED_IMAGE_TYPES)) {
         return ['success' => false, 'error' => MSG_INVALID_FILE_TYPE];
     }
     
-    // Check MIME type
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mimeType = finfo_file($finfo, $file['tmp_name']);
     finfo_close($finfo);
@@ -169,16 +161,13 @@ function handleProfilePictureUpload($file) {
         return ['success' => false, 'error' => MSG_INVALID_FILE_TYPE];
     }
     
-    // Generate unique filename
     $newFilename = uniqid('avatar_', true) . '.' . $fileExtension;
     $uploadPath = AVATAR_PATH . '/' . $newFilename;
     
-    // Create directory if it doesn't exist
     if (!is_dir(AVATAR_PATH)) {
         mkdir(AVATAR_PATH, 0755, true);
     }
     
-    // Move uploaded file (NO RESIZING)
     if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
         return ['success' => true, 'filename' => $newFilename];
     } else {
@@ -190,38 +179,39 @@ function handleProfilePictureUpload($file) {
 require_once '../includes/header.php';
 ?>
 
-<!-- Edit Profile Page -->
-<div class="container my-5">
+<!-- Hero Banner -->
+<div class="edit-profile-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <span class="badge-pill badge-gradient mb-2 d-inline-block">
+                    <i class="bi bi-gear-fill me-1"></i> Account Settings
+                </span>
+                <h1 class="text-white fw-bold display-6 mb-1">Edit Profile</h1>
+                <p class="text-slate-300 mb-0">Update your personal details, biography, and avatar.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
     <div class="row">
         <div class="col-lg-8 mx-auto">
             
-            <!-- Page Header -->
-            <div class="mb-4">
-                <h1 class="display-5 fw-bold">
-                    <i class="bi bi-person-circle text-primary"></i> Edit Profile
-                </h1>
-                <p class="text-muted">Update your account information</p>
-            </div>
-            
-            <!-- Success Message -->
-            <?php if ($success): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="bi bi-check-circle-fill me-2"></i>
-                    <strong>Success!</strong> Your profile has been updated.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            <?php endif; ?>
-            
             <!-- Error Messages -->
             <?php if (!empty($errors)): ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <strong>Please fix the following errors:</strong>
-                    <ul class="mb-0 mt-2">
-                        <?php foreach ($errors as $error): ?>
-                            <li><?php echo htmlspecialchars($error); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert" style="border-radius: 14px;">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+                        <div>
+                            <strong>Please fix the following errors:</strong>
+                            <ul class="mb-0 ps-3 mt-1">
+                                <?php foreach ($errors as $error): ?>
+                                    <li><?php echo htmlspecialchars($error); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             <?php endif; ?>
@@ -232,42 +222,45 @@ require_once '../includes/header.php';
                 <!-- CSRF Token -->
                 <?php echo csrfField(); ?>
                 
-                <div class="card shadow-sm border-0 mb-4">
-                    <div class="card-body p-4">
+                <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px; border: 1px solid #E2E8F0; overflow: hidden;">
+                    <div class="card-body p-4 p-md-5">
                         
-                        <!-- Current Profile Picture -->
-                        <div class="text-center mb-4">
-                            <img src="<?php echo upload('avatar', $user['profile_picture']); ?>" 
-                                 alt="<?php echo htmlspecialchars($user['username']); ?>"
-                                 class="rounded-circle shadow"
-                                 id="current-avatar"
-                                 style="width: 150px; height: 150px; object-fit: cover; border: 5px solid #fff;">
-                        </div>
-                        
-                        <!-- Profile Picture Upload -->
-                        <div class="mb-4">
-                            <label for="profile_picture" class="form-label fw-bold">
-                                <i class="bi bi-image"></i> Change Profile Picture
-                            </label>
-                            <input type="file" 
-                                   class="form-control" 
-                                   id="profile_picture" 
-                                   name="profile_picture" 
-                                   accept="image/*">
-                            <div class="form-text">
-                                Max size: <?php echo MAX_UPLOAD_SIZE_MB; ?>MB. 
-                                <strong>Please upload a square image (500x500px recommended)</strong>. 
-                                Formats: JPG, PNG, GIF, WEBP
+                        <!-- Current Profile Picture and Upload -->
+                        <div class="d-flex flex-column flex-sm-row align-items-center gap-4 mb-4 pb-4 border-bottom" style="border-color: #F1F5F9;">
+                            <div class="avatar-edit-preview flex-shrink-0">
+                                <?php if (!empty($user['profile_picture']) && $user['profile_picture'] !== DEFAULT_AVATAR): ?>
+                                    <img src="<?php echo upload('avatar', $user['profile_picture']); ?>" 
+                                         alt="<?php echo htmlspecialchars($user['username']); ?>"
+                                         id="current-avatar"
+                                         class="avatar-img-circle">
+                                <?php else: ?>
+                                    <div class="avatar-initials-circle" id="current-avatar-initials">
+                                        <?php echo strtoupper(substr($user['username'], 0, 2)); ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
-                            <div id="image-preview" class="mt-3"></div>
+                            
+                            <div class="flex-grow-1 w-100">
+                                <label for="profile_picture" class="form-label text-slate-800 fw-bold small">
+                                    Change Profile Photo
+                                </label>
+                                <input type="file" 
+                                       class="form-control" 
+                                       id="profile_picture" 
+                                       name="profile_picture" 
+                                       accept="image/*"
+                                       style="border-radius: 10px; border-color: #CBD5E1;">
+                                <div class="form-text small text-muted mt-1">
+                                    JPG, PNG, GIF, WEBP. Max <?php echo MAX_UPLOAD_SIZE_MB; ?>MB. Square image recommended.
+                                </div>
+                                <div id="image-preview" class="mt-2"></div>
+                            </div>
                         </div>
                         
-                        <hr class="my-4">
-                        
-                        <!-- Username (NOW ALLOWS SPACES) -->
+                        <!-- Username -->
                         <div class="mb-4">
-                            <label for="username" class="form-label fw-bold">
-                                <i class="bi bi-person"></i> Username *
+                            <label for="username" class="form-label text-slate-800 fw-bold small">
+                                Username <span class="text-danger">*</span>
                             </label>
                             <input type="text" 
                                    class="form-control" 
@@ -277,16 +270,17 @@ require_once '../includes/header.php';
                                    pattern="[a-zA-Z0-9_\s]{3,50}"
                                    minlength="<?php echo USERNAME_MIN_LENGTH; ?>"
                                    maxlength="<?php echo USERNAME_MAX_LENGTH; ?>"
+                                   style="border-radius: 10px; border-color: #CBD5E1;"
                                    required>
-                            <div class="form-text">
-                                <?php echo USERNAME_MIN_LENGTH; ?>-<?php echo USERNAME_MAX_LENGTH; ?> characters, letters, numbers, underscores, and spaces allowed
+                            <div class="form-text small text-muted">
+                                <?php echo USERNAME_MIN_LENGTH; ?>-<?php echo USERNAME_MAX_LENGTH; ?> characters (letters, numbers, underscores, spaces).
                             </div>
                         </div>
                         
                         <!-- Email -->
                         <div class="mb-4">
-                            <label for="email" class="form-label fw-bold">
-                                <i class="bi bi-envelope"></i> Email Address *
+                            <label for="email" class="form-label text-slate-800 fw-bold small">
+                                Email Address <span class="text-danger">*</span>
                             </label>
                             <input type="email" 
                                    class="form-control" 
@@ -294,42 +288,46 @@ require_once '../includes/header.php';
                                    name="email" 
                                    value="<?php echo htmlspecialchars($user['email']); ?>"
                                    maxlength="<?php echo EMAIL_MAX_LENGTH; ?>"
+                                   style="border-radius: 10px; border-color: #CBD5E1;"
                                    required>
                         </div>
                         
                         <!-- Bio -->
                         <div class="mb-4">
-                            <label for="bio" class="form-label fw-bold">
-                                <i class="bi bi-textarea-t"></i> Bio
+                            <label for="bio" class="form-label text-slate-800 fw-bold small">
+                                Bio / Description
                             </label>
                             <textarea class="form-control" 
                                       id="bio" 
                                       name="bio" 
                                       rows="4" 
-                                      maxlength="500"
-                                      placeholder="Tell others about yourself..."><?php echo htmlspecialchars($user['bio'] ?? ''); ?></textarea>
-                            <div class="form-text">Maximum 500 characters</div>
+                                      maxlength="500" 
+                                      placeholder="Share a short bio about yourself..."
+                                      style="border-radius: 10px; border-color: #CBD5E1;"><?php echo htmlspecialchars($user['bio'] ?? ''); ?></textarea>
+                            <div class="form-text small text-muted">Maximum 500 characters.</div>
                         </div>
                         
-                        <!-- Password Change Link -->
-                        <div class="alert alert-info">
-                            <i class="bi bi-info-circle me-2"></i>
-                            Want to change your password? 
-                            <a href="<?php echo url('profile/change_password.php'); ?>" class="alert-link">
-                                Click here
+                        <!-- Security Shortcut -->
+                        <div class="p-3 bg-slate-50 rounded-3 d-flex align-items-center justify-content-between border" style="border-color: #E2E8F0;">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-shield-lock text-indigo fs-5"></i>
+                                <span class="small text-slate-700">Need to update your account password?</span>
+                            </div>
+                            <a href="<?php echo url('profile/change_password.php'); ?>" class="btn btn-outline-secondary btn-sm px-3" style="border-radius: 8px;">
+                                Change Password
                             </a>
                         </div>
                         
                     </div>
                 </div>
                 
-                <!-- Submit Buttons -->
+                <!-- Action Buttons -->
                 <div class="d-flex justify-content-between align-items-center">
-                    <a href="<?php echo url('profile/view.php'); ?>" class="btn btn-outline-secondary">
-                        <i class="bi bi-x-circle"></i> Cancel
+                    <a href="<?php echo url('profile/view.php'); ?>" class="btn btn-outline-secondary px-4 py-2" style="border-radius: 10px;">
+                        Cancel
                     </a>
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="bi bi-check-circle"></i> Save Changes
+                    <button type="submit" class="btn btn-primary px-4 py-2" style="border-radius: 10px; font-weight: 600;">
+                        <i class="bi bi-check2 me-1"></i> Save Changes
                     </button>
                 </div>
                 
@@ -339,25 +337,72 @@ require_once '../includes/header.php';
     </div>
 </div>
 
-<!-- Image Preview Script -->
+<style>
+.edit-profile-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    padding: 55px 0;
+    margin-bottom: 35px;
+    border-radius: 0 0 28px 28px;
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.3);
+}
+.badge-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.badge-gradient {
+    background: rgba(255, 255, 255, 0.12);
+    color: #c7d2fe;
+}
+.avatar-edit-preview {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid #EEF2FF;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.avatar-img-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.avatar-initials-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+.text-indigo {
+    color: #4F46E5;
+}
+.bg-slate-50 {
+    background-color: #F8FAFC;
+}
+</style>
+
 <script>
 document.getElementById('profile_picture').addEventListener('change', function(e) {
     const file = e.target.files[0];
     const preview = document.getElementById('image-preview');
-    const currentAvatar = document.getElementById('current-avatar');
     
     if (file) {
         const reader = new FileReader();
-        
         reader.onload = function(e) {
             preview.innerHTML = `
-                <div class="text-center border rounded p-3">
-                    <p class="mb-2"><strong>New Profile Picture Preview:</strong></p>
-                    <img src="${e.target.result}" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                <div class="d-flex align-items-center gap-2 mt-2">
+                    <span class="small text-slate-600 fw-semibold">Preview:</span>
+                    <img src="${e.target.result}" class="rounded-circle" style="width: 44px; height: 44px; object-fit: cover; border: 2px solid #4F46E5;">
                 </div>
             `;
         };
-        
         reader.readAsDataURL(file);
     } else {
         preview.innerHTML = '';

@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Helper functions (same as create.php)
+// Helper functions
 function generateSlug($title) {
     $slug = strtolower($title);
     $slug = str_replace(' ', '-', $slug);
@@ -237,178 +237,238 @@ require_once '../includes/header.php';
 <!-- TinyMCE CDN -->
 <script src="https://cdn.tiny.cloud/1/3pois542gphm7g1bk1cquotogq9pzfqqx0duum3ww2lymwbu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
-<!-- Edit Post Form -->
-<div class="container my-5">
-    <div class="row">
-        <div class="col-lg-10 mx-auto">
-            
-            <!-- Page Header -->
-            <div class="mb-4">
-                <h1 class="display-5 fw-bold">
-                    <i class="bi bi-pencil-square text-primary"></i> Edit Post
-                </h1>
-                <p class="text-muted">Update your story</p>
+<!-- Hero Section -->
+<div class="edit-hero">
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+            <div>
+                <span class="badge-pill badge-gradient mb-2 d-inline-block">
+                    <i class="bi bi-pencil-fill me-1"></i> Editor Studio
+                </span>
+                <h1 class="text-white fw-bold display-6 mb-1">Edit Story</h1>
+                <p class="text-slate-300 mb-0">Refine your writing, update images, and manage publication settings.</p>
             </div>
-            
-            <!-- Error Messages -->
-            <?php if (!empty($errors)): ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <strong>Please fix the following errors:</strong>
-                    <ul class="mb-0 mt-2">
+            <div>
+                <a href="<?php echo url('posts/view.php?id=' . $postId); ?>" class="btn btn-outline-light px-3 py-2" style="border-radius: 10px;">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Story
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+    
+    <!-- Error Messages -->
+    <?php if (!empty($errors)): ?>
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert" style="border-radius: 14px;">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+                <div>
+                    <strong>Please resolve the following:</strong>
+                    <ul class="mb-0 ps-3 mt-1">
                         <?php foreach ($errors as $error): ?>
                             <li><?php echo htmlspecialchars($error); ?></li>
                         <?php endforeach; ?>
                     </ul>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-            <?php endif; ?>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php endif; ?>
+    
+    <!-- Edit Form -->
+    <form method="POST" action="" enctype="multipart/form-data" id="editPostForm">
+        
+        <!-- CSRF Token -->
+        <?php echo csrfField(); ?>
+        
+        <div class="row g-4">
             
-            <!-- Edit Post Form -->
-            <form method="POST" action="" enctype="multipart/form-data" id="editPostForm">
+            <!-- Left Main Column (Title & Content) -->
+            <div class="col-lg-8">
                 
-                <!-- CSRF Token -->
-                <?php echo csrfField(); ?>
-                
-                <div class="card shadow-sm border-0 mb-4">
-                    <div class="card-body p-4">
-                        
-                        <!-- Title -->
+                <div class="form-card mb-4">
+                    <div class="p-4">
+                        <!-- Story Title -->
                         <div class="mb-4">
-                            <label for="title" class="form-label fw-bold">
-                                <i class="bi bi-type"></i> Title *
+                            <label for="title" class="form-label text-slate-800 fw-bold">
+                                Story Title <span class="text-danger">*</span>
                             </label>
                             <input type="text" 
-                                   class="form-control form-control-lg" 
+                                   class="form-control form-control-lg fw-bold" 
                                    id="title" 
                                    name="title" 
                                    value="<?php echo htmlspecialchars($post['title']); ?>"
-                                   placeholder="Give your story a compelling title..."
+                                   placeholder="Title of your story..."
                                    minlength="<?php echo POST_TITLE_MIN_LENGTH; ?>"
                                    maxlength="<?php echo POST_TITLE_MAX_LENGTH; ?>"
+                                   style="font-size: 1.35rem; border-radius: 12px; border-color: #CBD5E1;"
                                    required>
-                            <div class="form-text">
-                                <?php echo POST_TITLE_MIN_LENGTH; ?>-<?php echo POST_TITLE_MAX_LENGTH; ?> characters
-                            </div>
                         </div>
                         
-                        <!-- Content -->
-                        <div class="mb-4">
-                            <label for="content" class="form-label fw-bold">
-                                <i class="bi bi-file-text"></i> Content *
+                        <!-- Story Content -->
+                        <div class="mb-3">
+                            <label for="content" class="form-label text-slate-800 fw-bold">
+                                Content <span class="text-danger">*</span>
                             </label>
                             <textarea class="form-control" 
                                       id="content" 
                                       name="content" 
-                                      rows="20"><?php echo htmlspecialchars($post['content']); ?></textarea>
-                            <div class="form-text">
-                                Minimum <?php echo POST_CONTENT_MIN_LENGTH; ?> characters. Use the editor toolbar to format your content.
-                            </div>
+                                      rows="18"><?php echo htmlspecialchars($post['content']); ?></textarea>
                         </div>
                         
-                        <!-- Current Featured Image -->
+                        <!-- Excerpt / Summary -->
+                        <div class="mt-4">
+                            <label for="excerpt" class="form-label text-slate-800 fw-bold">
+                                Short Summary / Excerpt <span class="text-muted fw-normal">(Optional)</span>
+                            </label>
+                            <textarea class="form-control" 
+                                      id="excerpt" 
+                                      name="excerpt" 
+                                      rows="3" 
+                                      placeholder="A short hook summarizing this story for preview cards..."
+                                      style="border-radius: 10px; border-color: #CBD5E1;"><?php echo htmlspecialchars($post['excerpt'] ?? ''); ?></textarea>
+                            <small class="text-muted">If left blank, an excerpt will be generated automatically.</small>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- Right Sidebar Column (Publish & Cover Image) -->
+            <div class="col-lg-4">
+                
+                <!-- Publishing Controls Card -->
+                <div class="form-card mb-4">
+                    <div class="p-4 border-bottom" style="border-color: #E2E8F0;">
+                        <h6 class="fw-bold text-slate-900 mb-0">
+                            <i class="bi bi-gear-wide-connected text-indigo me-2"></i>Publishing Settings
+                        </h6>
+                    </div>
+                    <div class="p-4">
+                        <div class="mb-4">
+                            <label for="status" class="form-label text-slate-700 fw-semibold small">Story Status</label>
+                            <select class="form-select" id="status" name="status" style="border-radius: 10px; border-color: #CBD5E1;">
+                                <option value="published" <?php echo ($post['status'] === 'published') ? 'selected' : ''; ?>>
+                                    🚀 Published (Public)
+                                </option>
+                                <option value="draft" <?php echo ($post['status'] === 'draft') ? 'selected' : ''; ?>>
+                                    📝 Draft (Private)
+                                </option>
+                            </select>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 10px; font-weight: 600; font-size: 1rem;">
+                                <i class="bi bi-check2-circle me-1"></i> Save & Update Story
+                            </button>
+                            <a href="<?php echo url('posts/my_posts.php'); ?>" class="btn btn-outline-secondary" style="border-radius: 10px;">
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Featured Image Card -->
+                <div class="form-card mb-4">
+                    <div class="p-4 border-bottom" style="border-color: #E2E8F0;">
+                        <h6 class="fw-bold text-slate-900 mb-0">
+                            <i class="bi bi-image text-indigo me-2"></i>Cover Image
+                        </h6>
+                    </div>
+                    <div class="p-4">
                         <?php if (!empty($post['featured_image'])): ?>
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Current Featured Image</label>
-                                <div>
-                                    <img src="<?php echo upload('blog', $post['featured_image']); ?>" 
-                                         alt="Current featured image" 
-                                         class="img-thumbnail" 
-                                         style="max-height: 200px;">
-                                </div>
+                                <span class="d-block text-slate-600 small fw-semibold mb-2">Current Cover Image:</span>
+                                <img src="<?php echo upload('blog', $post['featured_image']); ?>" 
+                                     alt="Current Cover" 
+                                     class="img-fluid rounded-3" 
+                                     style="max-height: 180px; width: 100%; object-fit: cover; border: 1px solid #E2E8F0;">
                             </div>
                         <?php endif; ?>
                         
-                        <!-- Featured Image -->
-                        <div class="mb-4">
-                            <label for="featured_image" class="form-label fw-bold">
-                                <i class="bi bi-image"></i> Change Featured Image (Optional)
-                            </label>
-                            <input type="file" 
-                                   class="form-control" 
-                                   id="featured_image" 
-                                   name="featured_image" 
-                                   accept="image/*">
-                            <div class="form-text">
-                                Leave empty to keep current image. Max size: <?php echo MAX_UPLOAD_SIZE_MB; ?>MB. Formats: JPG, PNG, GIF, WEBP
-                            </div>
-                            <div id="image-preview" class="mt-3"></div>
+                        <label for="featured_image" class="form-label text-slate-700 fw-semibold small">
+                            Replace Cover Image
+                        </label>
+                        <input type="file" 
+                               class="form-control" 
+                               id="featured_image" 
+                               name="featured_image" 
+                               accept="image/*"
+                               style="border-radius: 10px; border-color: #CBD5E1;">
+                        <div class="form-text small mt-2">
+                            Supported formats: JPG, PNG, WEBP, GIF. Max: <?php echo MAX_UPLOAD_SIZE_MB; ?>MB.
                         </div>
                         
-                        <!-- Status -->
-                        <div class="mb-4">
-                            <label for="status" class="form-label fw-bold">
-                                <i class="bi bi-check-circle"></i> Status
-                            </label>
-                            <select class="form-select" id="status" name="status">
-                                <option value="published" <?php echo ($post['status'] === 'published') ? 'selected' : ''; ?>>
-                                    Published
-                                </option>
-                                <option value="draft" <?php echo ($post['status'] === 'draft') ? 'selected' : ''; ?>>
-                                    Draft
-                                </option>
-                            </select>
-                            <div class="form-text">
-                                Published posts are visible to everyone. Drafts are only visible to you.
-                            </div>
-                        </div>
-                        
+                        <div id="image-preview" class="mt-3"></div>
                     </div>
                 </div>
                 
-                <!-- Submit Buttons -->
-                <div class="d-flex justify-content-between align-items-center">
-                    <a href="<?php echo url('posts/view.php?id=' . $postId); ?>" class="btn btn-outline-secondary">
-                        <i class="bi bi-x-circle"></i> Cancel
-                    </a>
-                    <div>
-                        <button type="submit" name="status" value="draft" class="btn btn-outline-primary me-2">
-                            <i class="bi bi-save"></i> Save as Draft
-                        </button>
-                        <button type="submit" name="status" value="published" class="btn btn-primary">
-                            <i class="bi bi-check-circle"></i> Update & Publish
-                        </button>
-                    </div>
-                </div>
-                
-            </form>
+            </div>
             
         </div>
-    </div>
+        
+    </form>
+    
 </div>
+
+<style>
+.edit-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    padding: 55px 0;
+    margin-bottom: 35px;
+    border-radius: 0 0 28px 28px;
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.3);
+}
+.badge-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.badge-gradient {
+    background: rgba(255, 255, 255, 0.12);
+    color: #c7d2fe;
+}
+.form-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04);
+}
+.text-indigo {
+    color: #4F46E5;
+}
+</style>
 
 <!-- Initialize TinyMCE Editor -->
 <script>
 tinymce.init({
     selector: '#content',
-    height: 500,
+    height: 520,
     menubar: false,
     plugins: [
         'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
         'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
         'insertdatetime', 'media', 'table', 'help', 'wordcount'
     ],
-    toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | removeformat | help',
-    content_style: 'body { font-family: Arial, sans-serif; font-size: 14px; }',
-    branding: false,
-    setup: function(editor) {
-        editor.on('init', function() {
-            console.log('TinyMCE initialized');
-        });
-    }
+    toolbar: 'undo redo | blocks | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | blockquote code | removeformat | preview',
+    content_style: 'body { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 1.7; color: #334155; }',
+    branding: false
 });
 
-// Fix form submission
+// Form submission handler
 document.getElementById('editPostForm').addEventListener('submit', function(e) {
     if (typeof tinymce !== 'undefined') {
         tinymce.triggerSave();
     }
     
-    const submitBtns = this.querySelectorAll('button[type="submit"]');
-    submitBtns.forEach(btn => {
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Updating...';
-    });
+    const submitBtn = this.querySelector('button[type="submit"]');
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving changes...';
+    }
 });
 
 // Image preview
@@ -418,16 +478,14 @@ document.getElementById('featured_image').addEventListener('change', function(e)
     
     if (file) {
         const reader = new FileReader();
-        
         reader.onload = function(e) {
             preview.innerHTML = `
-                <div class="border rounded p-2">
-                    <p class="mb-2"><strong>New Preview:</strong></p>
-                    <img src="${e.target.result}" class="img-fluid rounded" style="max-height: 300px;">
+                <div class="mt-2">
+                    <span class="d-block text-slate-600 small fw-semibold mb-1">New Cover Preview:</span>
+                    <img src="${e.target.result}" class="img-fluid rounded-3" style="max-height: 180px; width: 100%; object-fit: cover; border: 1px solid #E2E8F0;">
                 </div>
             `;
         };
-        
         reader.readAsDataURL(file);
     } else {
         preview.innerHTML = '';

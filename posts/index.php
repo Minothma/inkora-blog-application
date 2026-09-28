@@ -161,31 +161,60 @@ require_once '../includes/header.php';
 ?>
 
 <style>
-/* Enhanced Blog Card Styles */
-.blog-post-card {
-    transition: all 0.3s ease;
-    border: none;
+/* Nordic Slate & Deep Indigo Blog Cards */
+.hero-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    color: white;
+    padding: 70px 0;
+    margin-bottom: 40px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.3);
+    position: relative;
     overflow: hidden;
 }
 
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.blog-post-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+}
+
 .blog-post-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2) !important;
+    transform: translateY(-6px);
+    border-color: #cbd5e1;
+    box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04) !important;
 }
 
 .blog-post-image {
-    height: 250px;
+    height: 220px;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
 }
 
 .blog-post-card:hover .blog-post-image {
-    transform: scale(1.1);
+    transform: scale(1.04);
 }
 
 .blog-post-title {
+    font-size: 1.25rem;
     font-weight: 700;
-    transition: color 0.3s ease;
+    color: #0f172a !important;
+    line-height: 1.4;
+    transition: color 0.2s ease;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -193,144 +222,103 @@ require_once '../includes/header.php';
 }
 
 .blog-post-title:hover {
-    color: #667eea !important;
+    color: #4f46e5 !important;
 }
 
-/* FIXED: Avatar Styles - No More Shaking! */
 .avatar-wrapper {
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     flex-shrink: 0;
     display: inline-block;
 }
 
 .avatar-wrapper img {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    width: 36px;
+    height: 36px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     object-fit: cover;
 }
 
-.avatar-wrapper img:hover {
-    transform: scale(1.1);
-}
-
-.avatar-fallback {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn-indigo {
+    background: #4f46e5;
     color: white;
-    font-weight: bold;
-    font-size: 14px;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    border: none;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 0.625rem 1.5rem;
+    transition: all 0.2s ease;
 }
 
-.avatar-fallback:hover {
-    transform: scale(1.1);
-}
-
-.stat-icon {
-    transition: all 0.3s ease;
-}
-
-.stat-icon:hover {
-    transform: scale(1.2);
-    color: #667eea !important;
-}
-
-.hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.btn-indigo:hover {
+    background: #4338ca;
     color: white;
-    padding: 80px 0;
-    margin-bottom: 50px;
-    border-radius: 0 0 50px 50px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px -4px rgba(79, 70, 229, 0.4);
 }
 
 .page-item.active .page-link {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
-}
-
-.btn-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
-    color: white;
-    transition: all 0.3s ease;
-}
-
-.btn-gradient:hover {
-    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    background: #4f46e5;
+    border-color: #4f46e5;
     color: white;
 }
 
-.featured-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+.page-link {
+    color: #475569;
+    border-radius: 8px;
+    margin: 0 2px;
+    border: 1px solid #e2e8f0;
 }
 
-.reading-time {
-    color: #6c757d;
-    font-size: 0.85rem;
-    font-weight: 500;
+.page-link:hover {
+    background: #f1f5f9;
+    color: #4f46e5;
 }
 
 .card-excerpt {
+    color: #64748b;
+    font-size: 0.925rem;
+    line-height: 1.6;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    line-height: 1.6;
 }
 
 @media (max-width: 768px) {
     .hero-section {
-        padding: 50px 0;
-        border-radius: 0 0 30px 30px;
+        padding: 45px 0;
+        border-radius: 0 0 20px 20px;
     }
 }
 </style>
 
 <!-- Hero Section -->
 <div class="hero-section">
-    <div class="container">
+    <div class="container position-relative">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h1 class="display-3 fw-bold mb-3 animate__animated animate__fadeInDown">
-                    <i class="bi bi-book-half"></i> Discover Amazing Stories
+                <span class="badge px-3 py-2 mb-3 rounded-pill" style="background: rgba(255, 255, 255, 0.12); color: #c7d2fe; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;">
+                    <i class="bi bi-stars me-1"></i> EXPLORE THE WRITERS HUB
+                </span>
+                <h1 class="display-4 fw-bold mb-3 text-white" style="letter-spacing: -0.5px;">
+                    Discover Amazing Stories
                 </h1>
-                <p class="lead mb-4 animate__animated animate__fadeInUp">
+                <p class="lead mb-4" style="color: #cbd5e1; font-size: 1.15rem; line-height: 1.7;">
                     Explore inspiring stories, innovative ideas, and unique experiences from talented writers around the world
                 </p>
                 
                 <?php if (isLoggedIn()): ?>
-                    <a href="<?php echo url('posts/create.php'); ?>" class="btn btn-light btn-lg px-5 animate__animated animate__fadeInUp">
-                        <i class="bi bi-plus-circle me-2"></i> Share Your Story
+                    <a href="<?php echo url('posts/create.php'); ?>" class="btn btn-light btn-lg px-4 fw-semibold shadow-sm" style="border-radius: 12px; color: #0f172a;">
+                        <i class="bi bi-plus-circle me-2 text-primary"></i> Share Your Story
                     </a>
                 <?php else: ?>
-                    <div class="animate__animated animate__fadeInUp">
-                        <a href="<?php echo url('auth/register.php'); ?>" class="btn btn-light btn-lg px-4 me-3">
-                            <i class="bi bi-person-plus me-2"></i> Join Inkora
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="<?php echo url('auth/register.php'); ?>" class="btn btn-light btn-lg px-4 fw-semibold shadow-sm" style="border-radius: 12px; color: #0f172a;">
+                            <i class="bi bi-person-plus me-2 text-primary"></i> Join Inkora
                         </a>
-                        <a href="<?php echo url('auth/login.php'); ?>" class="btn btn-outline-light btn-lg px-4">
+                        <a href="<?php echo url('auth/login.php'); ?>" class="btn btn-outline-light btn-lg px-4 fw-semibold" style="border-radius: 12px; border-color: rgba(255,255,255,0.3);">
                             <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
                         </a>
                     </div>

@@ -31,6 +31,11 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
 <link rel="icon" href="<?php echo BASE_URL; ?>/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="<?php echo BASE_URL; ?>/favicon.ico" type="image/x-icon">
     
+    <!-- Google Fonts (Plus Jakarta Sans & Lora) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
     <!-- Bootstrap 5 CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -40,11 +45,25 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo CSS_URL; ?>/style.css">
     
-    <!-- Navbar and Search Styling -->
+    <!-- Nordic Slate & Deep Indigo Navbar Styling -->
     <style>
-        /* Fixed navbar height */
+        :root {
+            --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-serif: 'Lora', Georgia, serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        /* Fixed navbar height & Sleek Midnight Slate Style */
         .navbar {
-            min-height: 62px;
+            min-height: 68px;
+            background: #0f172a !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
         }
         
         /* Logo styling */
@@ -57,49 +76,105 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
         }
         
         .navbar-brand img {
-            height: 48px !important;
+            height: 44px !important;
             width: auto;
             object-fit: contain;
             filter: invert(1);
             mix-blend-mode: screen;
+            transition: transform 0.2s ease;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Nav links */
+        .navbar-nav .nav-link {
+            color: #94a3b8 !important;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 0.9rem !important;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.06);
         }
 
         /* Fixed Search Bar Styling (consistent across ALL pages) */
         .navbar .form-control {
-            height: 38px !important;
-            padding: 0.375rem 0.875rem !important;
+            height: 40px !important;
+            padding: 0.375rem 0.9rem !important;
             font-size: 0.875rem !important;
-            border-radius: 8px !important;
-            border: 1px solid rgba(255, 255, 255, 0.25) !important;
-            background-color: rgba(255, 255, 255, 0.12) !important;
+            border-radius: 10px !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            background-color: rgba(255, 255, 255, 0.08) !important;
             color: #ffffff !important;
-            width: 200px !important;
-            transition: all 0.25s ease !important;
+            width: 210px !important;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
 
         .navbar .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.65) !important;
+            color: rgba(255, 255, 255, 0.55) !important;
         }
 
         .navbar .form-control:focus {
             background-color: #ffffff !important;
             color: #0f172a !important;
-            border-color: #ffffff !important;
-            box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25) !important;
-            width: 250px !important;
+            border-color: #6366f1 !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
+            width: 260px !important;
         }
 
         .navbar .form-control:focus::placeholder {
-            color: #64748b !important;
+            color: #94a3b8 !important;
         }
 
         .navbar .btn-outline-light {
-            height: 38px !important;
-            padding: 0.375rem 0.75rem !important;
-            border-radius: 8px !important;
+            height: 40px !important;
+            padding: 0.375rem 0.85rem !important;
+            border-radius: 10px !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            color: #94a3b8 !important;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
+            transition: all 0.2s ease;
+        }
+
+        .navbar .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+        }
+
+        /* User Dropdown */
+        .navbar .dropdown-menu {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            padding: 0.5rem;
+        }
+
+        .navbar .dropdown-item {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .navbar .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .navbar .dropdown-divider {
+            border-color: rgba(255, 255, 255, 0.08);
         }
         
         /* Responsive sizing */
@@ -112,7 +187,7 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
 
         @media (max-width: 768px) {
             .navbar-brand img {
-                height: 40px !important;
+                height: 38px !important;
             }
         }
     </style>
@@ -129,8 +204,8 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
 </head>
 <body>
     
-    <!-- Navigation Bar - Black Theme -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;">
+    <!-- Navigation Bar - Nordic Slate Theme -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <!-- Logo/Brand -->
             <a class="navbar-brand d-flex align-items-center" href="<?php echo url('index.php'); ?>">
