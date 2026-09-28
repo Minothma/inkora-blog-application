@@ -120,8 +120,8 @@ COOKIE_HTTPONLY=true
 COOKIE_SAMESITE=Lax
 
 # Admin Credentials
-ADMIN_EMAIL=admin@inkora.com
-ADMIN_USERNAME=admin
+ADMIN_EMAIL=admin2@inkora.com
+ADMIN_USERNAME=admin2
 
 # File Upload Settings
 MAX_UPLOAD_SIZE=5242880

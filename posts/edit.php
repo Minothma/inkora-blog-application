@@ -235,7 +235,7 @@ require_once '../includes/header.php';
 ?>
 
 <!-- TinyMCE CDN -->
-<script src="https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/3pois542gphm7g1bk1cquotogq9pzfqqx0duum3ww2lymwbu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
 <!-- Edit Post Form -->
 <div class="container my-5">
