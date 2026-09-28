@@ -297,19 +297,26 @@ require_once '../includes/header.php';
     color: var(--gradient-cyan);
 }
 
-.form-control, .form-select {
+.form-card .form-control, 
+.form-card .form-select,
+.story-form .form-control,
+.story-form .form-select {
     border: 2px solid var(--border-light);
     border-radius: 12px;
     padding: 0.75rem 1rem;
     transition: all 0.3s ease;
 }
 
-.form-control:focus, .form-select:focus {
+.form-card .form-control:focus, 
+.form-card .form-select:focus,
+.story-form .form-control:focus,
+.story-form .form-select:focus {
     border-color: var(--gradient-cyan);
     box-shadow: 0 0 0 0.2rem rgba(0, 206, 209, 0.15);
 }
 
-.form-control-lg {
+.form-card .form-control-lg,
+.story-form .form-control-lg {
     font-size: 1.25rem;
     font-weight: 600;
     padding: 1rem 1.25rem;

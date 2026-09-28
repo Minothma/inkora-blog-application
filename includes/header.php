@@ -40,40 +40,79 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' - ' . APP_NAME : APP_NAME;
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo CSS_URL; ?>/style.css">
     
-    <!-- Logo Sizing Fix -->
+    <!-- Navbar and Search Styling -->
     <style>
         /* Fixed navbar height */
         .navbar {
-            min-height: 60px; /* Fixed navbar height */
+            min-height: 62px;
         }
         
-        /* Logo styling - increase size without affecting navbar */
+        /* Logo styling */
         .navbar-brand {
             padding-top: 0;
             padding-bottom: 0;
-            height: 60px; /* Match navbar height */
+            height: 60px;
             display: flex;
             align-items: center;
         }
         
         .navbar-brand img {
-            height: 80px !important; /* Increase logo size */
+            height: 48px !important;
             width: auto;
             object-fit: contain;
             filter: invert(1);
             mix-blend-mode: screen;
         }
-        
-        /* Responsive logo sizing */
-        @media (max-width: 768px) {
-            .navbar-brand img {
-                height: 60px !important; /* Smaller on mobile */
-            }
+
+        /* Fixed Search Bar Styling (consistent across ALL pages) */
+        .navbar .form-control {
+            height: 38px !important;
+            padding: 0.375rem 0.875rem !important;
+            font-size: 0.875rem !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            background-color: rgba(255, 255, 255, 0.12) !important;
+            color: #ffffff !important;
+            width: 200px !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .navbar .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.65) !important;
+        }
+
+        .navbar .form-control:focus {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #ffffff !important;
+            box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25) !important;
+            width: 250px !important;
+        }
+
+        .navbar .form-control:focus::placeholder {
+            color: #64748b !important;
+        }
+
+        .navbar .btn-outline-light {
+            height: 38px !important;
+            padding: 0.375rem 0.75rem !important;
+            border-radius: 8px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
         
-        @media (max-width: 576px) {
+        /* Responsive sizing */
+        @media (max-width: 991px) {
+            .navbar .form-control {
+                width: 100% !important;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
             .navbar-brand img {
-                height: 50px !important; /* Even smaller on small mobile */
+                height: 40px !important;
             }
         }
     </style>
