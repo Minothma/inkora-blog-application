@@ -12,8 +12,39 @@ if (!defined('DB_HOST')) {
 // Root directory path (absolute server path)
 define('ROOT_PATH', dirname(__DIR__));
 
+// Determine protocol (supporting reverse proxies, HTTPS, and Cloudflare)
+$isHttps = (
+    (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+    (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ||
+    (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+    (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] === 'on')
+);
+$protocol = $isHttps ? 'https://' : 'http://';
+$httpHost = $_SERVER['HTTP_HOST'] ?? 'localhost';
+
+// Auto-detect base URL dynamically
+$envAppUrl = env('APP_URL');
+if ($httpHost === 'localhost' || $httpHost === '127.0.0.1') {
+    // Local development - fallback to configured APP_URL or detect subfolder
+    $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+    $segments = array_values(array_filter(explode('/', trim($scriptDir, '/'))));
+    $subDir = '';
+    if (!empty($segments) && !in_array($segments[0], ['posts', 'auth', 'admin', 'profile', 'api', 'includes', 'config', 'assets'])) {
+        $subDir = '/' . $segments[0];
+    }
+    $defaultLocal = $protocol . $httpHost . ($subDir ?: '/blogApp');
+    $detectedBaseUrl = !empty($envAppUrl) ? $envAppUrl : $defaultLocal;
+} else {
+    // Live hosting (e.g. inkora-app.infinityfreeapp.com)
+    if (!empty($envAppUrl) && strpos($envAppUrl, 'localhost') === false && strpos($envAppUrl, '127.0.0.1') === false) {
+        $detectedBaseUrl = $envAppUrl;
+    } else {
+        $detectedBaseUrl = $protocol . $httpHost;
+    }
+}
+
 // Base URL for the application (for links and redirects)
-define('BASE_URL', env('APP_URL', 'http://localhost/BLOG-APP'));
+define('BASE_URL', rtrim($detectedBaseUrl, '/'));
 
 // Asset URLs (for CSS, JS, Images)
 define('CSS_URL', BASE_URL . '/assets/css');
@@ -324,8 +355,12 @@ function asset($type, $file) {
  */
 function upload($type, $file) {
     // Handle default avatar - return from assets/images instead of uploads
-    if ($type === 'avatar' && (empty($file) || $file === DEFAULT_AVATAR)) {
+    if ($type === 'avatar' && (empty($file) || $file === DEFAULT_AVATAR || $file === 'default-avatar.png')) {
         return IMG_URL . '/default-avatar.png';
+    }
+
+    if ($type === 'blog' && (empty($file) || $file === 'placeholder.jpg' || $file === 'placeholder-blog.jpg')) {
+        return IMG_URL . '/hero-bg.jpg';
     }
     
     $urls = [

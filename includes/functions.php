@@ -79,24 +79,26 @@ function removeQueryParam($param) {
  * Get image URL with fallback
  */
 function getImageUrl($filename, $type = 'blog') {
-    if (empty($filename) || $filename === 'default-avatar.png' || $filename === 'placeholder.jpg') {
-        return $type === 'avatar' 
+    if (empty($filename) || $filename === 'default-avatar.png' || $filename === 'placeholder.jpg' || $filename === 'placeholder-blog.jpg') {
+        return url($type === 'avatar' 
             ? 'assets/images/default-avatar.png' 
-            : 'assets/images/placeholder-blog.jpg';
+            : 'assets/images/hero-bg.jpg');
     }
     
     $basePath = $type === 'avatar' ? 'uploads/avatars/' : 'uploads/blog_images/';
     $fullPath = $basePath . $filename;
     
-    // Check if file exists
-    if (file_exists($fullPath)) {
-        return $fullPath;
+    // Check if file exists on disk
+    if (defined('ROOT_PATH') && file_exists(ROOT_PATH . '/' . $fullPath)) {
+        return url($fullPath);
+    } elseif (file_exists($fullPath)) {
+        return url($fullPath);
     }
     
     // Return default if file doesn't exist
-    return $type === 'avatar' 
+    return url($type === 'avatar' 
         ? 'assets/images/default-avatar.png' 
-        : 'assets/images/placeholder-blog.jpg';
+        : 'assets/images/hero-bg.jpg');
 }
 
 /**

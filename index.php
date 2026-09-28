@@ -554,41 +554,18 @@ require_once 'includes/header.php';
                                 <!-- Post Meta -->
                                 <div class="mt-auto">
                                     <!-- Author Info -->
-                                    <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                                        <?php 
-                                        $avatarPath = '';
-                                        $showImage = false;
-                                        
-                                        if (!empty($post['author_avatar'])) {
-                                            if (file_exists('uploads/avatars/' . $post['author_avatar'])) {
-                                                $avatarPath = 'uploads/avatars/' . $post['author_avatar'];
-                                                $showImage = true;
-                                            } elseif (file_exists('uploads/profile/' . $post['author_avatar'])) {
-                                                $avatarPath = 'uploads/profile/' . $post['author_avatar'];
-                                                $showImage = true;
-                                            }
-                                        }
-                                        ?>
-                                        
                                         <div class="avatar-wrapper me-2">
-                                            <?php if ($showImage): ?>
-                                                <img src="<?php echo htmlspecialchars($avatarPath); ?>" 
-                                                     alt="<?php echo htmlspecialchars($post['author_name']); ?>"
-                                                     class="rounded-circle"
-                                                     width="40"
-                                                     height="40"
-                                                     style="object-fit: cover;"
-                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                                <div class="rounded-circle d-none align-items-center justify-content-center"
-                                                     style="width: 40px; height: 40px; background: <?php echo getAvatarColor($post['author_name']); ?>; color: white; font-weight: bold; font-size: 14px;">
-                                                    <?php echo getInitials($post['author_name']); ?>
-                                                </div>
-                                            <?php else: ?>
-                                                <div class="rounded-circle d-flex align-items-center justify-content-center"
-                                                     style="width: 40px; height: 40px; background: <?php echo getAvatarColor($post['author_name']); ?>; color: white; font-weight: bold; font-size: 14px;">
-                                                    <?php echo getInitials($post['author_name']); ?>
-                                                </div>
-                                            <?php endif; ?>
+                                            <img src="<?php echo upload('avatar', $post['author_avatar'] ?? ''); ?>" 
+                                                 alt="<?php echo htmlspecialchars($post['author_name']); ?>"
+                                                 class="rounded-circle"
+                                                 width="40" 
+                                                 height="40"
+                                                 style="object-fit: cover;"
+                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                            <div class="rounded-circle align-items-center justify-content-center"
+                                                 style="width: 40px; height: 40px; background: <?php echo getAvatarColor($post['author_name']); ?>; color: white; font-weight: bold; font-size: 14px; display: none;">
+                                                <?php echo getInitials($post['author_name']); ?>
+                                            </div>
                                         </div>
                                         <div class="flex-grow-1">
                                             <div class="fw-semibold" style="font-size: 0.95rem; color: var(--text-dark);">

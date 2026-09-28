@@ -458,38 +458,17 @@ require_once '../includes/header.php';
                             <div>
                                 <!-- Author Info - FIXED VERSION -->
                                 <div class="d-flex align-items-center mb-3">
-                                    <?php 
-                                    // Check if avatar exists in multiple possible locations
-                                    $avatarPath = '';
-                                    $showImage = false;
-                                    
-                                    if (!empty($post['author_avatar'])) {
-                                        // Check in uploads/avatars/
-                                        if (file_exists('../uploads/avatars/' . $post['author_avatar'])) {
-                                            $avatarPath = upload('avatar', $post['author_avatar']);
-                                            $showImage = true;
-                                        }
-                                        // Check in uploads/profile/
-                                        elseif (file_exists('../uploads/profile/' . $post['author_avatar'])) {
-                                            $avatarPath = '../uploads/profile/' . $post['author_avatar'];
-                                            $showImage = true;
-                                        }
-                                    }
-                                    ?>
-                                    
                                     <a href="<?php echo url('profile/view.php?id=' . $post['author_id']); ?>" 
                                        class="text-decoration-none">
                                         <div class="avatar-wrapper me-2">
-                                            <?php if ($showImage): ?>
-                                                <img src="<?php echo htmlspecialchars($avatarPath); ?>" 
-                                                     alt="<?php echo htmlspecialchars($post['author_name']); ?>"
-                                                     class="rounded-circle">
-                                            <?php else: ?>
-                                                <div class="avatar-fallback rounded-circle" 
-                                                     style="background: <?php echo getAvatarColor($post['author_name']); ?>">
-                                                    <?php echo getInitials($post['author_name']); ?>
-                                                </div>
-                                            <?php endif; ?>
+                                            <img src="<?php echo upload('avatar', $post['author_avatar'] ?? ''); ?>" 
+                                                 alt="<?php echo htmlspecialchars($post['author_name']); ?>"
+                                                 class="rounded-circle"
+                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                            <div class="avatar-fallback rounded-circle" 
+                                                 style="background: <?php echo getAvatarColor($post['author_name']); ?>; display: none;">
+                                                <?php echo getInitials($post['author_name']); ?>
+                                            </div>
                                         </div>
                                     </a>
                                     

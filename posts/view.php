@@ -608,33 +608,15 @@ body {
                 <?php endif; ?>
                 
                 <div class="author-meta fade-in">
-                    <?php 
-                    // Check if avatar exists
-                    $avatarPath = '';
-                    $showImage = false;
-                    
-                    if (!empty($post['author_avatar'])) {
-                        if (file_exists('../uploads/avatars/' . $post['author_avatar'])) {
-                            $avatarPath = upload('avatar', $post['author_avatar']);
-                            $showImage = true;
-                        } elseif (file_exists('../uploads/profile/' . $post['author_avatar'])) {
-                            $avatarPath = '../uploads/profile/' . $post['author_avatar'];
-                            $showImage = true;
-                        }
-                    }
-                    ?>
-                    
                     <div class="avatar-wrapper avatar-lg">
-                        <?php if ($showImage): ?>
-                            <img src="<?php echo htmlspecialchars($avatarPath); ?>" 
-                                 alt="<?php echo htmlspecialchars($post['author_name']); ?>"
-                                 class="avatar-img">
-                        <?php else: ?>
-                            <div class="avatar-fallback avatar-lg" 
-                                 style="background: <?php echo getAvatarColor($post['author_name']); ?>">
-                                <?php echo getInitials($post['author_name']); ?>
-                            </div>
-                        <?php endif; ?>
+                        <img src="<?php echo upload('avatar', $post['author_avatar'] ?? ''); ?>" 
+                             alt="<?php echo htmlspecialchars($post['author_name']); ?>"
+                             class="avatar-img"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="avatar-fallback avatar-lg" 
+                             style="background: <?php echo getAvatarColor($post['author_name']); ?>; display: none;">
+                            <?php echo getInitials($post['author_name']); ?>
+                        </div>
                     </div>
                     
                     <div class="flex-grow-1">
@@ -771,32 +753,15 @@ body {
                         <div class="comment-item">
                             <div class="d-flex justify-content-between align-items-start">
                                 <div class="d-flex gap-3 flex-grow-1">
-                                    <?php 
-                                    $commenterAvatarPath = '';
-                                    $showCommenterImage = false;
-                                    
-                                    if (!empty($comment['commenter_avatar'])) {
-                                        if (file_exists('../uploads/avatars/' . $comment['commenter_avatar'])) {
-                                            $commenterAvatarPath = upload('avatar', $comment['commenter_avatar']);
-                                            $showCommenterImage = true;
-                                        } elseif (file_exists('../uploads/profile/' . $comment['commenter_avatar'])) {
-                                            $commenterAvatarPath = '../uploads/profile/' . $comment['commenter_avatar'];
-                                            $showCommenterImage = true;
-                                        }
-                                    }
-                                    ?>
-                                    
                                     <div class="avatar-wrapper avatar-md">
-                                        <?php if ($showCommenterImage): ?>
-                                            <img src="<?php echo htmlspecialchars($commenterAvatarPath); ?>" 
-                                                 alt="<?php echo htmlspecialchars($comment['commenter_name']); ?>"
-                                                 class="avatar-img">
-                                        <?php else: ?>
-                                            <div class="avatar-fallback avatar-md" 
-                                                 style="background: <?php echo getAvatarColor($comment['commenter_name']); ?>">
-                                                <?php echo getInitials($comment['commenter_name']); ?>
-                                            </div>
-                                        <?php endif; ?>
+                                        <img src="<?php echo upload('avatar', $comment['commenter_avatar'] ?? ''); ?>" 
+                                             alt="<?php echo htmlspecialchars($comment['commenter_name']); ?>"
+                                             class="avatar-img"
+                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div class="avatar-fallback avatar-md" 
+                                             style="background: <?php echo getAvatarColor($comment['commenter_name']); ?>; display: none;">
+                                            <?php echo getInitials($comment['commenter_name']); ?>
+                                        </div>
                                     </div>
                                     
                                     <div class="flex-grow-1">
